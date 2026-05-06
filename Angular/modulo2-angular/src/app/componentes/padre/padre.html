@@ -1,0 +1,31 @@
+<h1>Sistema de votos</h1>
+
+<app-hijo-formulario
+  (agregar)="recibirEvento($event)">
+</app-hijo-formulario>
+
+<hr>
+
+<div *ngFor="let elemento of elementos">
+
+  <h3>{{ elemento.nombre }}</h3>
+
+  <p>{{ elemento.descripcion }}</p>
+
+  <p>
+     {{ elemento.votosFavor || 0 }}
+  </p>
+
+  <p>
+     {{ elemento.votosContra || 0 }}
+  </p>
+
+  <button (click)="votarFavor(elemento)">
+    Voto positivo
+  </button>
+
+  <button (click)="votarContra(elemento)">
+    Voto negativo
+  </button>
+
+</div>

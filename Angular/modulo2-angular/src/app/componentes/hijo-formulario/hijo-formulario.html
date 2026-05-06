@@ -1,0 +1,31 @@
+<form [formGroup]="formulario" (ngSubmit)="enviar()">
+
+  <input
+    type="text"
+    placeholder="Nombre"
+    formControlName="nombre"
+  >
+
+  <div *ngIf="formulario.get('nombre')?.hasError('required')">
+    Nombre requerido
+  </div>
+
+  <div *ngIf="formulario.get('nombre')?.hasError('nombreProhibido')">
+    Ese nombre no está permitido
+  </div>
+
+  <input
+    type="text"
+    placeholder="Descripción"
+    formControlName="descripcion"
+  >
+
+  <div *ngIf="formulario.get('descripcion')?.hasError('required')">
+    Descripción requerida
+  </div>
+
+  <button type="submit">
+    Agregar
+  </button>
+
+</form>
