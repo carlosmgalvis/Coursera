@@ -1,0 +1,1 @@
+export abstract class LoggerAlias {abstract log (mensaje: string): void;}

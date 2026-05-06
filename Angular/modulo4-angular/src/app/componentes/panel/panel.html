@@ -1,0 +1,27 @@
+<p>panel works!</p>
+<h1>Tracking</h1>
+
+<button
+  appTracking
+  trackingTag="boton-principal"
+  (click)="cambiarEstado()">
+
+  Click aquí
+
+</button>
+
+<div
+  [@animacionCaja]="estado"
+  style="width:100px;height:100px;background:red;margin-top:20px;">
+</div>
+
+<hr>
+
+<div *ngIf="tracking$ | async as tracking">
+
+  <p>
+    boton-principal:
+    {{ tracking.tags['boton-principal'] || 0 }}
+  </p>
+
+</div>

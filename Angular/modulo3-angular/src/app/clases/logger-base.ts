@@ -1,0 +1,1 @@
+export abstract class LoggerBase {abstract log(mensaje: string): void;}
