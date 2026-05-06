@@ -1,0 +1,29 @@
+<p>lista-tareas works!</p>
+
+<div class="card p-4">
+
+  <h2>{{ titulo }}</h2>
+
+  <form>
+
+    <input #entrada class="form-control" placeholder="Nueva tarea">
+
+    <button type="button"
+            class="btn btn-success mt-2"
+            (click)="agregarTarea(entrada.value)">
+      Agregar
+    </button>
+
+  </form>
+
+  <hr>
+
+  <ul class="list-group">
+
+    <li class="list-group-item" *ngFor="let tarea of tareas">
+      {{ tarea.nombre }}
+    </li>
+
+  </ul>
+
+</div>
