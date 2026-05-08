@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Tech Solutions</title>
+    <!-- Referencias a node_modules -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Navbar Fija (Mismo que index) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">TECH_SOLUTIONS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="productos.html">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <!-- Breadcrumbs: Ubicando al usuario en el mapa de sitio -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Productos</li>
+            </ol>
+        </nav>
+
+        <h2 class="mb-4">Catálogo de Especificaciones</h2>
+
+        <!-- Tabla con Scroll y Open Iconic -->
+        <div class="table-responsive table-scroll-container shadow-sm mb-5">
+            <table class="table table-striped table-hover mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Estado</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Rendimiento</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="oi oi-check text-success" title="Disponible"></span></td>
+                        <td>Módulo Alpha</td>
+                        <td>Hardware</td>
+                        <td>98%</td>
+                        <td><button class="btn btn-sm btn-outline-dark"><span class="oi oi-magnifying-glass"></span></button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="oi oi-bolt text-warning" title="En mantenimiento"></span></td>
+                        <td>Interfaz Beta</td>
+                        <td>Software</td>
+                        <td>85%</td>
+                        <td><button class="btn btn-sm btn-outline-dark"><span class="oi oi-magnifying-glass"></span></button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="oi oi-cloud text-info" title="En la nube"></span></td>
+                        <td>Storage Gamma</td>
+                        <td>Cloud</td>
+                        <td>100%</td>
+                        <td><button class="btn btn-sm btn-outline-dark"><span class="oi oi-magnifying-glass"></span></button></td>
+                    </tr>
+                    <!-- Filas repetidas para demostrar el scroll -->
+                    <tr>
+                        <td><span class="oi oi-check text-success"></span></td>
+                        <td>Sensor Delta</td>
+                        <td>IoT</td>
+                        <td>92%</td>
+                        <td><button class="btn btn-sm btn-outline-dark"><span class="oi oi-magnifying-glass"></span></button></td>
+                    </tr>
+                    <tr>
+                        <td><span class="oi oi-check text-success"></span></td>
+                        <td>Router Epsilon</td>
+                        <td>Redes</td>
+                        <td>95%</td>
+                        <td><button class="btn btn-sm btn-outline-dark"><span class="oi oi-magnifying-glass"></span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr>
+
+        <!-- Información utilizando Media Objects -->
+        <h3 class="my-4">Reseñas de Expertos</h3>
+        <ul class="list-unstyled">
+            <li class="media my-4 p-3 border rounded shadow-sm">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/6438023192036737525" class="mr-3 rounded-circle" alt="User" style="width: 64px;">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">Ing. Carlos Galvis</h5>
+                    La integración del Módulo Alpha ha reducido la latencia en un 40%. Es una pieza fundamental para nuestra infraestructura actual en Bogotá.
+                </div>
+            </li>
+            <li class="media my-4 p-3 border rounded shadow-sm">
+                <img src="http://googleusercontent.com/image_collection/image_retrieval/7234901524318721643" class="mr-3 rounded-circle" alt="User" style="width: 64px;">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">Liliana Camero</h5>
+                    El sistema de grillas y la respuesta del Storage Gamma permiten una escalabilidad sin precedentes en proyectos de IA.
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Footer (Mismo que index) -->
+    <footer class="bg-dark text-white pt-5 pb-3">
+        <div class="container text-center text-md-left">
+            <div class="row">
+                <div class="col-md-4">
+                    <address>
+                        <strong>Tech Solutions S.A.</strong><br>
+                        Calle 100, Bogotá<br>
+                        <span class="oi oi-phone"></span> +57 601 000 0000
+                    </address>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h5>Explorar</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white-50">Inicio</a></li>
+                        <li><a href="contacto.html" class="text-white-50">Soporte</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-right">
+                    <p>&copy; 2026 Innovación Tech.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
