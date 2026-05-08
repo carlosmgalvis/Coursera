@@ -1,0 +1,65 @@
+/* Ajuste para Navbar Fija */
+body {
+    padding-top: 70px; /* Evita que el fixed-top cubra el contenido */
+    background-color: #f4f7f6;
+}
+
+/* Banner Principal */
+.main-banner {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url('http://googleusercontent.com/image_collection/image_retrieval/13712565568084742136');
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    margin-bottom: 0;
+}
+
+/* Tabla con Scroll */
+.table-scroll-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+}
+
+/* Cards Modernas */
+.card {
+    transition: all 0.3s ease;
+    border: none;
+}
+.card:hover {
+    transform: translateY(-10px);
+}
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Espaciados Flex */
+.d-flex {
+    gap: 1rem;
+}
+
+/* Ajustes de Carousel */
+.h-500 {
+    height: 500px;
+    object-fit: cover;
+}
+
+.bg-dark-transparent {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Animación para Accordion */
+.card-header .btn-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Prolijidad en Tablets/Móviles */
+@media (max-width: 768px) {
+    .h-500 { height: 300px; }
+    .nav-pills .nav-link { margin-bottom: 5px; }
+}
