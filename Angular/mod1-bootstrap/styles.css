@@ -1,0 +1,32 @@
+/* Estilos replicables para los productos */
+.product-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease;
+    height: 100%; /* Para que todos tengan la misma altura en Flex */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-color: #007bff;
+}
+
+.product-item h4 {
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* Ajustes para el sistema de grilla responsive */
+@media (max-width: 576px) {
+    .product-card-container {
+        margin-bottom: 15px;
+    }
+}

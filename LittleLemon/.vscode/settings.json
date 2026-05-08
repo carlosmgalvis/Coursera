@@ -1,0 +1,12 @@
+{
+    "python-envs.defaultEnvManager": "ms-python.python:pipenv",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "LittleLemon",
+            "group": "LittleLemon",
+            "database": "db.sqlite3"
+        }
+    ]
+}

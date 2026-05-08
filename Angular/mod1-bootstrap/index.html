@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Pro</title>
+    <!-- CSS de Bootstrap desde node_modules -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid bg-primary text-white">
+        <div class="container text-center">
+            <h1 class="display-4">Innovación Tecnológica</h1>
+            <p class="lead">Soluciones avanzadas para el desarrollo moderno.</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Características -->
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Escalabilidad</h3>
+                <p>Nuestros sistemas crecen conforme a las necesidades de tu infraestructura global.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Rendimiento</h3>
+                <p>Optimización de recursos para garantizar latencias mínimas en procesos críticos.</p>
+            </div>
+            <div class="col-md-4">
+                <h3>Seguridad</h3>
+                <p>Implementación de protocolos de cifrado de última generación en cada módulo.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Listado de Productos con Grid y Flex -->
+        <h2 class="text-center my-4">Nuestros Productos</h2>
+        <div class="row d-flex flex-row align-items-stretch"> <!-- Grid transformado a Flex -->
+            <div class="col-12 col-sm-6 col-lg-4 product-card-container">
+                <div class="product-item">
+                    <h4>Módulo Alpha</h4>
+                    <p>Procesador de datos en tiempo real con integración de IA.</p>
+                    <button class="btn btn-outline-primary">Ver detalle</button>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 product-card-container">
+                <div class="product-item">
+                    <h4>Módulo Beta</h4>
+                    <p>Interfaz de gestión para contenedores y microservicios complejos.</p>
+                    <button class="btn btn-outline-primary">Ver detalle</button>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4 product-card-container">
+                <div class="product-item">
+                    <h4>Módulo Gamma</h4>
+                    <p>Sistema de almacenamiento distribuido con alta disponibilidad.</p>
+                    <button class="btn btn-outline-primary">Ver detalle</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="container-fluid bg-dark text-light mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-4 text-left">
+                    <address>
+                        <strong>Sede Principal</strong><br>
+                        Calle 100 #15-30, Bogotá<br>
+                        <abbr title="Teléfono">P:</abbr> (+57) 601-555-0123
+                    </address>
+                </div>
+                <div class="col-4 text-center">
+                    <h5>Redes Sociales</h5>
+                    <a href="#" class="text-info">LinkedIn</a> | <a href="#" class="text-info">GitHub</a>
+                </div>
+                <div class="col-4 text-right">
+                    <p>&copy; 2026 Innovación Tech. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS de dependencias desde node_modules -->
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
