@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Solutions - Home</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Navbar con Menú Desplegable -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">TECH_SOLUTIONS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navDrop" data-toggle="dropdown">Servicios</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="productos.html">Consultoría AI</a>
+                            <a class="dropdown-item" href="productos.html">Infraestructura</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carousel Principal con Controles -->
+    <div id="mainCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#mainCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" class="d-block w-100 h-500" alt="Hardware">
+                <div class="carousel-caption d-none d-md-block bg-dark-transparent">
+                    <h5>Liderazgo en Ingeniería</h5>
+                    <p>Potenciamos sistemas con Inteligencia Artificial avanzada.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" class="d-block w-100 h-500" alt="Cloud">
+                <div class="carousel-caption d-none d-md-block bg-dark-transparent">
+                    <h5>Nube Híbrida</h5>
+                    <p>Escalabilidad global para proyectos de alta demanda.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#mainCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#mainCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+
+    <main class="container my-5">
+        <div class="text-center mb-5">
+            <h2>Tecnologías Destacadas</h2>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                Únete a la Red de Expertos
+            </button>
+        </div>
+
+        <div class="row">
+            <!-- Card con Tooltip -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Cyber">
+                    <div class="card-body">
+                        <h5 class="card-title" data-toggle="tooltip" data-placement="top" title="Certificación Tier IV">
+                            Módulo Alpha <span class="oi oi-info"></span>
+                        </h5>
+                        <p class="card-text">Sistemas de seguridad redundante para centros de datos.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Otros productos... -->
+        </div>
+    </main>
+
+    <!-- Modal de Registro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Formulario de Registro</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Nombre Completo</label>
+                            <input type="text" class="form-control" placeholder="Ej: Liliana Camero">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Profesional</label>
+                            <input type="email" class="form-control" placeholder="nombre@empresa.com">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Registrarme</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

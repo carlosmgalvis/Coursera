@@ -1,0 +1,30 @@
+// Variables de color
+$color-alert: #ff4d4d; // Rojo
+$color-success: #28a745; // Verde
+$color-warning: #ffc107; // Amarillo
+$color-primary: #007bff; // Azul original
+
+// Mixin para estructura prolija
+@mixin box-layout($margin, $padding, $bg-color) {
+  margin: $margin;
+  padding: $padding;
+  background-color: $bg-color;
+  border-radius: 8px;
+}
+
+body {
+  padding-top: 70px;
+  @include box-layout(0, 0, #f8f9fa);
+}
+
+.jumbotron {
+  @include box-layout(20px, 40px, $color-primary);
+  color: white;
+}
+
+// Clase para el botón dinámico del modal
+.btn-inactive {
+  background-color: $color-warning !important;
+  border-color: $color-warning !important;
+  cursor: not-allowed;
+}
