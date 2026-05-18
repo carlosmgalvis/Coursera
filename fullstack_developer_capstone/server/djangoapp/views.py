@@ -34,6 +34,7 @@ def get_cars(request):
     for car_model in car_models:
         cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
     return JsonResponse({"CarModels":cars})
+
 # Create a `login_request` view to handle sign in request
 @csrf_exempt
 def login_user(request):

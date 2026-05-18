@@ -4,7 +4,6 @@ from django.db import models
 from django.utils.timezone import now
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-# Create your models here.
 
 # <HINT> Create a Car Make model `class CarMake(models.Model)`:
 class CarMake(models.Model):
@@ -15,7 +14,7 @@ class CarMake(models.Model):
     def __str__(self):
         return self.name  # Return the name as the string representation
 
-        
+# <HINT> Create a Car Make model `class CarMake(models.Model)`:
 # - Name
 # - Description
 # - Any other fields you would like to include in car make model
@@ -29,6 +28,10 @@ class CarModel(models.Model):
         ('SEDAN', 'Sedan'),
         ('SUV', 'SUV'),
         ('WAGON', 'Wagon'),
+        ('HATCHBACK', 'Hatchback'),
+        ('CABRIOLET', 'Convertible (Cabriolet)'),
+        ('MPV', 'Minivan'),     
+        ('PICKUP', 'Pickup Truck'),                             
         # Add more choices as required
     ]
     type = models.CharField(max_length=10, choices=CAR_TYPES, default='SUV')
