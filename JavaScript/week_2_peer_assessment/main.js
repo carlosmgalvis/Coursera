@@ -1,27 +1,40 @@
 Messages = new Mongo.Collection("messages");
 if (Meteor.isClient){
 
-
-    Template.nicknameForm.events({
-        'click .js-set-nickname':function(){
-            var nickname = $('#nickname-input').val();
-            // HERE is where you come in -
-            // can you save the nickname onto the session?
-            // ... put something in here!
-            Session.set('nickname', nickname);
-        }
+    // this will configure the sign up field so it
+    // they only need a username
+    Accounts.ui.config({
+      passwordSignupFields: 'USERNAME_ONLY',
     });
+
+
 
     Template.messageForm.events({
         // this event listener is triggered when they click on
         // the post! button on the message form template
+
         'click .js-save-message':function(event){
             var messageText = $('#message-text-input').val();
-            var messageNickname = Session.get('nickname');
+            // notice how tihs has changed since the lsat time
+            // now we read the username from the Meteor.user()
+            var messageNickname = "Anon";
+            if (Meteor.user()){
+                messageNickname = Meteor.user().username;
+            }
             var message = {messageText:messageText,
                             nickname:messageNickname,
                             createdOn:new Date()};
-            Messages.insert(message);
+
+            // HERE is where you come in ....
+            // call a meteor method
+            // on the server here instead of
+            // comment out this code, which won't work as we removed insecure...
+            Meteor.call('insertMessage', message, function(err, res){
+                if (!res){
+                    alert('You need to log in!');
+                }
+            });
+
         }
     });
 
@@ -31,8 +44,9 @@ if (Meteor.isClient){
         // called 'nickname' that
         // returns the nickname from the Session variable?, if they have set it
         nickname:function(){
-            // put something in here...
-            return Session.get('nickname');
+            if (Meteor.user()){
+                return Meteor.user().username;
+            }
         },
     });
 
@@ -41,7 +55,7 @@ if (Meteor.isClient){
         // this helper provides the list of messages for the
         // messgaeList template
         messages:function(){
-            return Messages.find({});
+            return Messages.find({}, {sort: {createdOn: -1}})
         }
     });
 
