@@ -1,0 +1,23 @@
+<ActionBar title="Home" class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Home" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="page__content">
+  <Label class="page__content-icon fas" text="&#xf015;"></Label>
+  <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+</GridLayout>
+<GridLayout>
+  <ScrollView class="page">
+    <Stacklayout class="home-panel">
+      <!-- Add your page content here-->
+      <label textwrap="true" text="Play with NativeScript!" class="h2 description-label"></label>
+      <label textwrap="true" text="Write code in the editor or drag and drop" class="h2 descrition-label"></label>
+      <label textwrap="true" text="Scan the QR code with your mobile device" class="h2 description-label"></label>
+
+    </Stacklayout>
+  </ScrollView>
+</GridLayout>

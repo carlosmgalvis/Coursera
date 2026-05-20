@@ -1,0 +1,57 @@
+<!--
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Master" colSpan="2"></Label>
+
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+
+<ActionBar title="NativeFlix"></ActionBar>
+
+<GridLayout>
+  <Label text="Hello"></Label>
+</GridLayout>
+-->
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Master" colSpan="2"></Label>
+
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+</ActionBar>
+
+<ListView height="100%" separatorColor="transparent" [items]="getFlicks()">
+  <ng-template let-item="item">
+    <GridLayout
+      height="280"
+      borderRadius="10"
+      class="bg-secondary"
+      rows="*, auto, auto"
+      columns="*"
+      margin="12 10 0 10"
+      padding="0"
+    >
+      <image row="0" margin="0" stretch="aspectFill" [src]="item.image" alt=""></image>
+      <label
+        row="1"
+        margin="10 10 0 10"
+        fontWeight="700"
+        class="text-primary"
+        fontSize="18"
+        [text]="item.title"
+      ></label>
+      <label
+        row="2"
+        margin="0 10 10 10"
+        class="text-secondary"
+        fontSize="14"
+        textWrap="true"
+        [text]="item.description"
+      ></label>
+    </GridLayout>
+  </ng-template>
+</ListView>
