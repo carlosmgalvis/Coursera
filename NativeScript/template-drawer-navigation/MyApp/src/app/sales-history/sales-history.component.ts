@@ -1,5 +1,3 @@
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
-import { Application } from '@nativescript/core'
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
 import { CartService } from '~/core/services/cart.service';
@@ -7,17 +5,15 @@ import { SaleHistory } from '~/core/models/flick.model';
 import { alert } from '@nativescript/core';
 
 @Component({
-  selector: 'browse',
-  templateUrl: './browse.component.html',
-  styleUrls: ['./browse.component.scss']
+  selector: 'sales-history',
+  templateUrl: './sales-history.component.html',
+  styleUrls: ['./sales-history.component.scss']
 })
-export class BrowseComponent implements OnInit {
+export class SalesHistoryComponent implements OnInit {
   private cartService = inject(CartService);
   private router = inject(RouterExtensions);
-
   salesHistory: SaleHistory[] = [];
   totalSales: number = 0;
-  totalTransactions: number = 0;
 
   ngOnInit(): void {
     this.loadSalesHistory();
@@ -26,7 +22,6 @@ export class BrowseComponent implements OnInit {
   loadSalesHistory(): void {
     this.salesHistory = this.cartService.getSalesHistory();
     this.totalSales = this.cartService.getTotalSales();
-    this.totalTransactions = this.salesHistory.length;
   }
 
   async viewSaleDetails(sale: SaleHistory): Promise<void> {
@@ -41,22 +36,11 @@ export class BrowseComponent implements OnInit {
       okButtonText: 'Close'
     });
   }
-
   goToMaster(): void {
     this.router.navigate(['/master'], { clearHistory: true });
   }
 
   formatDate(date: any): string {
     return new Date(date).toLocaleDateString();
-  }
-
-  refresh(): void {
-    this.loadSalesHistory();
-  }
-
-
-  onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>Application.getRootView()
-    sideDrawer.showDrawer()
   }
 }

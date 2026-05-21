@@ -5,6 +5,8 @@ export interface FlickModel {
   image: string
   url: string
   description: string
+  ticketPrice: number
+  availableTickets: number
   details: {
     title: string
     body: string
@@ -14,4 +16,18 @@ export interface FlickModel {
 export interface DetailItem {
   title: string;
   body: string;
+}
+
+export interface CartItem {
+  flick: FlickModel;
+  quantity: number;
+  subtotal: number;
+}
+
+export interface SaleHistory {
+  id: string;
+  date: Date;
+  items: CartItem[];
+  totalAmount: number;
+  paymentMethod?: string;
 }

@@ -1,0 +1,38 @@
+<ActionBar title="Purchase History" class="action-bar">
+  <NavigationButton text="Back"></NavigationButton>
+  <ActionItem (tap)="goToMaster()" ios.position="right" android.position="actionBar">
+    <Label text="🏠" class="fas"></Label>
+  </ActionItem>
+</ActionBar>
+
+<GridLayout rows="auto, *" height="100%">
+
+  <StackLayout row="0" class="history-header" padding="16">
+    <Label class="total-sales" text="Total Spent: ${{ totalSales.toFixed(2) }}" fontSize="20" fontWeight="700" color="#28a745"></Label>
+    <Label class="total-transactions" text="{{ salesHistory.length }} Transactions" fontSize="14" class="text-secondary"></Label>
+  </StackLayout>
+
+  <ListView row="1" [items]="salesHistory" separatorColor="transparent">
+    <ng-template let-item="item" let-i="index">
+      <GridLayout class="sale-item" rows="auto, auto" columns="*, auto" margin="8 16" padding="12" borderRadius="8" (tap)="viewSaleDetails(item)">
+
+        <StackLayout row="0" col="0">
+          <Label text="{{ item.id }}" fontSize="12" class="text-secondary"></Label>
+          <Label text="{{ formatDate(item.date) }}" fontSize="14" fontWeight="500" class="text-primary" marginTop="4"></Label>
+        </StackLayout>
+
+        <StackLayout row="0" col="1" horizontalAlignment="right">
+          <Label text="${{ item.totalAmount.toFixed(2) }}" fontSize="18" fontWeight="700" class="text-primary"></Label>
+          <Label text="{{ item.items.length }} items" fontSize="12" class="text-secondary"></Label>
+        </StackLayout>
+
+        <FlexboxLayout row="1" col="0" colSpan="2" flexDirection="row" flexWrap="wrap" marginTop="8">
+          <Label *ngFor="let cartItem of item.items.slice(0, 3)" text="{{ cartItem.flick.title }} ({{ cartItem.quantity }})" fontSize="12" class="item-badge" marginRight="4" marginTop="4"></Label>
+          <Label *ngIf="item.items.length > 3" text="+{{ item.items.length - 3 }} more" fontSize="12" class="item-badge-more" marginTop="4"></Label>
+        </FlexboxLayout>
+
+      </GridLayout>
+    </ng-template>
+  </ListView>
+
+</GridLayout>

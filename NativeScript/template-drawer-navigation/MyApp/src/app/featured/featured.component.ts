@@ -19,4 +19,5 @@ export class FeaturedComponent implements OnInit {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
   }
+
 }

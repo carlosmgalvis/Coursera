@@ -29,6 +29,14 @@ const routes: Routes = [
     loadChildren: () =>
       import("~/app/details/details.module").then((m) => m.DetailsModule),
   },
+  {
+    path: 'cart',              // NEW: Shopping cart route
+    loadChildren: () => import('./cart/cart.module').then(m => m.CartModule)
+  },
+  {
+    path: 'sales-history',     // NEW: Sales history route
+    loadChildren: () => import('./sales-history/sales-history.module').then(m => m.SalesHistoryModule)
+  },
     {
     path: '',
     redirectTo: '/master',

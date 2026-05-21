@@ -1,10 +1,24 @@
 <ActionBar [title]="flick?.title">
-  <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+  <NavigationButton text="Back" (tap)="goBack()"></NavigationButton>
+  <ActionItem (tap)="goToCart()" ios.position="right" android.position="actionBar">
+    <Label text="🛒" class="fas"></Label>
+  </ActionItem>
 </ActionBar>
 
 <ScrollView height="100%">
   <StackLayout>
     <image margin="0" stretch="aspectFill" alt="" [src]="flick?.image"></image>
+
+    <!-- Price and Buy Button Section -->
+    <GridLayout columns="*, auto" padding="10 20" backgroundColor="#f8f9fa" marginTop="10">
+      <StackLayout col="0">
+        <label text="Ticket Price" fontSize="12" class="text-secondary"></label>
+        <label text="${{ flick?.ticketPrice?.toFixed(2) }}" fontSize="24" fontWeight="700" class="text-primary"></label>
+        <label text="{{ flick?.availableTickets }} tickets available" fontSize="12" class="text-secondary"></label>
+      </StackLayout>
+      <button col="1" text="Add to Cart" title="Add to Cart" (tap)="addToCart()" backgroundColor="#28a745" color="white" borderRadius="8" padding="12 20" fontSize="16" fontWeight="600" verticalAlignment="center"></button>
+    </GridLayout>
+
     @for (detail of flick?.details; track $index) {
     <StackLayout padding="10 20">
       <label

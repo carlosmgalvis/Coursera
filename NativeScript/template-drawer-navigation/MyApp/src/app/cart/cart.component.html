@@ -1,0 +1,58 @@
+<ActionBar title="Shopping Cart" class="action-bar">
+  <NavigationButton text="Back" (tap)="continueShopping()"></NavigationButton>
+  <ActionItem (tap)="goToMaster()" ios.position="right" android.position="actionBar">
+    <Label text="🏠" class="fas"></Label>
+  </ActionItem>
+</ActionBar>
+
+<GridLayout rows="auto, *, auto" height="100%">
+
+  <StackLayout row="0" class="cart-summary" visibility="{{ cartItems.length > 0 ? 'visible' : 'collapsed' }}">
+    <Label class="summary-text" text="🛒 Your Cart"></Label>
+    <Label class="items-count" text="{{ totalItems }} item(s)"></Label>
+  </StackLayout>
+
+  <StackLayout row="0" rowSpan="2" class="empty-cart" visibility="{{ cartItems.length === 0 ? 'visible' : 'collapsed' }}" verticalAlignment="center" horizontalAlignment="center">
+    <Label class="empty-cart-icon" text="🛒"></Label>
+    <Label class="empty-cart-text" text="Your cart is empty"></Label>
+    <Label class="empty-cart-subtext" text="Browse shows to add tickets"></Label>
+    <Button text="Browse Shows" class="btn-primary" title="continueShopping" (tap)="continueShopping()"></Button>
+  </StackLayout>
+
+  <ListView row="1" [items]="cartItems" visibility="{{ cartItems.length > 0 ? 'visible' : 'collapsed' }}" separatorColor="transparent">
+    <ng-template let-item="item" let-i="index">
+      <GridLayout class="cart-item" rows="auto, auto" columns="auto, *, auto" margin="8 16" padding="12" borderRadius="8">
+
+        <image row="0" rowSpan="2" col="0" width="60" height="60" borderRadius="4" stretch="aspectFill" [src]="item.flick.image" alt="" class="item-image"></image>
+
+        <StackLayout row="0" col="1" marginLeft="12">
+          <Label text="{{ item.flick.title }}" fontSize="16" fontWeight="700" class="text-primary"></Label>
+          <Label text="${{ item.flick.ticketPrice.toFixed(2) }} each" fontSize="12" class="text-secondary"></Label>
+        </StackLayout>
+
+        <Button row="0" col="2" text="✕" class="remove-button" title="removeItem" (tap)="removeItem(item)"></Button>
+
+        <GridLayout row="1" col="1" columns="auto, auto, auto" marginTop="8" marginLeft="12" horizontalAlignment="left">
+          <Button col="0" text="-" class="quantity-btn" title="decrease quantity" (tap)="updateQuantity(item, -1)"></Button>
+          <Label col="1" text="{{ item.quantity }}" fontSize="16" fontWeight="600" marginLeft="12" marginRight="12" minWidth="30" textAlignment="center"></Label>
+          <Button col="2" text="+" class="quantity-btn" title="increase quantity" (tap)="updateQuantity(item, 1)"></Button>
+        </GridLayout>
+
+        <StackLayout row="1" col="2" verticalAlignment="bottom">
+          <Label text="Subtotal:" fontSize="12" class="text-secondary"></Label>
+          <Label text="${{ item.subtotal.toFixed(2) }}" fontSize="16" fontWeight="700" class="text-primary"></Label>
+        </StackLayout>
+
+      </GridLayout>
+    </ng-template>
+  </ListView>
+
+  <GridLayout row="2" class="checkout-footer" visibility="{{ cartItems.length > 0 ? 'visible' : 'collapsed' }}" columns="*, auto" padding="16">
+    <StackLayout col="0">
+      <Label text="Total" fontSize="14" class="text-secondary"></Label>
+      <Label text="${{ totalPrice.toFixed(2) }}" fontSize="24" fontWeight="700" class="text-primary"></Label>
+    </StackLayout>
+    <Button col="1" text="Checkout" class="checkout-button" title="checkout" (tap)="checkout()"></Button>
+  </GridLayout>
+
+</GridLayout>

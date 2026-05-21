@@ -1,42 +1,30 @@
-<!--
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
+  <GridLayout columns="100, *, auto">
     <Label class="action-bar-title" text="Master" colSpan="2"></Label>
-
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="fas" text="🛒" (tap)="goToCart()" horizontalAlignment="right"></Label>
   </GridLayout>
 </ActionBar>
 
+<ListView
+  height="100%"
+  separatorColor="transparent"
+  [items]="getFlicks()"
+  (itemTap)="onItemTap($event)">
 
-<ActionBar title="NativeFlix"></ActionBar>
-
-<GridLayout>
-  <Label text="Hello"></Label>
-</GridLayout>
--->
-<ActionBar class="action-bar">
-  <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="Master" colSpan="2"></Label>
-
-    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
-  </GridLayout>
-</ActionBar>
-
-<ListView height="100%" separatorColor="transparent" [items]="flickService.getFlicks()"
-  (itemTap)="onFlickTap($event)">
-  <ng-template let-item="item">
+  <ng-template let-item="item" let-i="index">
     <GridLayout
-      height="280"
+      height="340"
       borderRadius="10"
       class="bg-secondary"
-      rows="*, auto, auto"
+      rows="*, auto, auto, auto"
       columns="*"
       margin="12 10 0 10"
       padding="0"
     >
       <image row="0" margin="0" stretch="aspectFill" [src]="item.image" alt=""></image>
+
       <label
         row="1"
         margin="10 10 0 10"
@@ -45,14 +33,26 @@
         fontSize="18"
         [text]="item.title"
       ></label>
+
       <label
         row="2"
-        margin="0 10 10 10"
+        margin="0 10 0 10"
         class="text-secondary"
         fontSize="14"
         textWrap="true"
         [text]="item.description"
       ></label>
+
+      <!-- Price and Buy Button -->
+      <GridLayout row="3" columns="*, auto, auto" margin="10">
+        <label col="0" text="${{ item.ticketPrice.toFixed(2) }}" fontSize="16" fontWeight="700" class="text-primary" verticalAlignment="center"></label>
+
+        <!-- Available tickets badge -->
+        <label col="1" text="{{ item.availableTickets }} left" fontSize="12" class="text-secondary" verticalAlignment="center" marginRight="10"></label>
+
+        <!-- Buy button - Note the (tap) binding directly calls onBuyTap with the item -->
+        <button col="2" text="Buy Tickets" title="Buy Tickets" class="btn-buy" (tap)="onBuyTap(item)" backgroundColor="#28a745" color="white" borderRadius="5" padding="10 15" fontSize="14"></button>
+      </GridLayout>
     </GridLayout>
   </ng-template>
 </ListView>
