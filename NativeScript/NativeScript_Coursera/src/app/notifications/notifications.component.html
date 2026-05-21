@@ -1,0 +1,33 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" text="Notificaciones Firebase" col="1"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="page__content">
+  <StackLayout>
+    <Label text="Notificaciones Recebidas" class="h1 mb-4" textWrap="true"></Label>
+    
+    <Button text="Probar Notificación" 
+            class="btn btn-primary mb-4"
+            (tap)="testNotification()">
+    </Button>
+
+    <ListView [items]="notifications" class="notifications-list">
+      <ng-template let-notification="notification">
+        <FlexboxLayout class="notification-item">
+          <StackLayout class="notification-content">
+            <Label [text]="notification.title" class="notification-title"></Label>
+            <Label [text]="notification.body" class="notification-body"></Label>
+          </StackLayout>
+        </FlexboxLayout>
+      </ng-template>
+    </ListView>
+    
+    <Label *ngIf="notifications.length === 0" 
+           text="No hay notificaciones" 
+           class="no-notifications"></Label>
+  </StackLayout>
+</GridLayout>

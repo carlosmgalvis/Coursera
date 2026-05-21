@@ -1,0 +1,71 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" text="Favoritos" col="1"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="page__content">
+  <StackLayout>
+    <Label text="Mis Favoritos" class="h1 mb-4" textWrap="true"></Label>
+    
+    <ListView [items]="favorites$ | async" class="favorites-list">
+      <ng-template let-favorite="favorite">
+        <FlexboxLayout class="favorite-item" (tap)="onItemTap(favorite)">
+          <!-- Favorite item content -->
+          <FlexboxLayout class="favorite-content" flexDirection="column" flex="1">
+            <Label [text]="favorite.title" class="favorite-title"></Label>
+            <Label [text]="favorite.category" class="favorite-category"></Label>
+            <Label [text]="'$' + favorite.price" class="favorite-price"></Label>
+          </FlexboxLayout>
+          
+          <!-- Favorite toggle icon -->
+          <Label 
+            class="fas favorite-icon"
+            text="&#xf005;"
+            (tap)="toggleFavorite($event, favorite)">
+          </Label>
+          
+          <!-- Read now button -->
+          <Button text="Leer ahora" 
+                  class="btn-read-now"
+                  (tap)="onReadNow($event, favorite)">
+          </Button>
+        </FlexboxLayout>
+      </ng-template>
+    </ListView>
+    
+    <Label *ngIf="(favorites$ | async)?.length === 0" 
+           text="No tienes favoritos aún" 
+           class="no-favorites"></Label>
+    
+    <Divider class="my-4"/>
+    
+    <Label text="Leídos Recientemente" class="h1 mb-4" textWrap="true"></Label>
+    
+    <ListView [items]="readItems$ | async" class="read-items-list">
+      <ng-template let-item="item">
+        <FlexboxLayout class="read-item" (tap)="onItemTap(item)">
+          <!-- Read item content -->
+          <FlexboxLayout class="read-content" flexDirection="column" flex="1">
+            <Label [text]="item.title" class="read-title"></Label>
+            <Label [text]="item.category" class="read-category"></Label>
+            <Label [text]="'$' + item.price" class="read-price"></Label>
+          </FlexboxLayout>
+          
+          <!-- Remove from read list -->
+          <Label 
+            class="fas remove-icon"
+            text="&#xf00d;"
+            (tap)="removeFromRead($event, item.id)">
+          </Label>
+        </FlexboxLayout>
+      </ng-template>
+    </ListView>
+    
+    <Label *ngIf="(readItems$ | async)?.length === 0" 
+           text="No tienes elementos leídos aún" 
+           class="no-reads"></Label>
+  </StackLayout>
+</GridLayout>

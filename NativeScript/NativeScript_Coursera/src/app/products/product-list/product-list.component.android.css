@@ -1,0 +1,42 @@
+/* Estilos específicos para Android */
+.product-container {
+  padding: 16;
+  background-color: #FAFAFA;
+}
+
+.platform-message {
+  font-size: 14;
+  color: #4CAF50;
+  padding: 12;
+  margin-bottom: 12;
+  background-color: #E8F5E9;
+  border-radius: 8;
+  border-width: 1;
+  border-color: #4CAF50;
+}
+
+.product-item {
+  padding: 16;
+  margin-bottom: 12;
+  background-color: #ffffff;
+  border-radius: 8;
+  elevation: 2;
+}
+
+.product-name {
+  font-size: 18;
+  font-weight: bold;
+  color: #212121;
+}
+
+.product-category {
+  font-size: 12;
+  color: #757575;
+  margin-top: 4;
+}
+
+.product-price {
+  font-size: 16;
+  font-weight: bold;
+  color: #1976D2;
+}

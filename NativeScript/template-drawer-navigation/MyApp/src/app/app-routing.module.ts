@@ -25,6 +25,16 @@ const routes: Routes = [
     loadChildren: () => import('~/app/master/master.module').then((m) => m.MasterModule),
   },
   {
+    path: "details/:id",
+    loadChildren: () =>
+      import("~/app/details/details.module").then((m) => m.DetailsModule),
+  },
+    {
+    path: '',
+    redirectTo: '/master',
+    pathMatch: 'full'
+  },
+  {
     path: 'settings',
     loadChildren: () => import('~/app/settings/settings.module').then((m) => m.SettingsModule),
   },

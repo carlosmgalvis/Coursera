@@ -8,6 +8,24 @@
 </ActionBar>
 
 <GridLayout class="page__content">
-  <Label class="page__content-icon fas" text="&#xf013;"></Label>
-  <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+  <StackLayout class="form-container">
+    <Label text="Configuracion de Ngrok" class="h1 mb-4"></Label>
+
+    <TextField hint="URL de Ngrok (ej: https://abc123.ngrok.io)"
+               class="input"
+               formControlName="ngrokUrl">
+    </TextField>
+
+    <Label text="Nombre de Usuario" class="h1 mb-4 mt-4"></Label>
+    <TextField hint="Tu nombre de usuario"
+               class="input"
+               formControlName="username">
+    </TextField>
+
+    <Button text="Guardar Configuracion"
+            title="Guadar"
+            class="btn btn-primary mt-4"
+            (tap)="onSave()">
+    </Button>
+  </StackLayout>
 </GridLayout>

@@ -1,0 +1,27 @@
+<ActionBar [title]="flick?.title">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+
+<ScrollView height="100%">
+  <StackLayout>
+    <image margin="0" stretch="aspectFill" alt="" [src]="flick?.image"></image>
+    @for (detail of flick?.details; track $index) {
+    <StackLayout padding="10 20">
+      <label
+        marginTop="15"
+        fontSize="16"
+        fontWeight="700"
+        class="text-primary"
+        textWrap="true"
+        [text]="detail.title"
+      ></label>
+      <label
+        fontSize="14"
+        class="text-secondary"
+        textWrap="true"
+        [text]="detail.body"
+      ></label>
+    </StackLayout>
+    }
+  </StackLayout>
+</ScrollView>

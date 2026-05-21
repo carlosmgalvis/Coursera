@@ -1,0 +1,78 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" text="Buscar Productos" col="1"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="page__content">
+  <StackLayout class="search-container">
+     <!-- Formulario con two-way binding -->
+      <StackLayout class="search-form">
+        <TextField 
+          hint="Buscar productos..." 
+          class="search-input"
+          formControlName="searchTerm"
+          (textChange)="onSearchChange()">
+        </TextField>
+       
+        <!-- Validación visual -->
+        <Label 
+          *ngIf="searchForm.get('searchTerm')?.errors?.['minLength']" 
+          text="* Mínimo 3 caracteres" 
+          class="error-message">
+        </Label>
+      </StackLayout>
+ 
+     <!-- Botón con animación -->
+     <GridLayout columns="auto, *" class="animation-row">
+       <Label 
+         col="0"
+         class="fas animation-icon" 
+         text="&#xf002;"
+         [rotate]="rotationAngle"
+         (tap)="onAnimateIcon()">
+       </Label>
+       <Label col="1" text="Toca para animar" class="animation-label"></Label>
+     </GridLayout>
+ 
+     <!-- ListView con FlexboxLayout anidado y pull to refresh -->
+     <ListView 
+       class="search-list"
+       [items]="products"
+       (pullToRefresh)="onPullToRefresh($event)"
+       pullToRefresh="true">
+       <ng-template let-product="product">
+         <FlexboxLayout class="item-container" (tap)="onItemTap(product)">
+           <!-- FlexboxLayout anidado para el contenido -->
+           <FlexboxLayout class="item-content" flexDirection="column" flex="1">
+             <Label [text]="product.title" class="item-title"></Label>
+             <Label [text]="product.category" class="item-category"></Label>
+             <Label [text]="'$' + product.price" class="item-price"></Label>
+           </FlexboxLayout>
+           
+           <!-- Favorite toggle icon -->
+           <Label 
+             class="fas favorite-icon"
+             [class.active]="isFavorite(product)"
+             text="&#xf005;"
+             (tap)="toggleFavorite($event, product)">
+           </Label>
+           
+           <!-- Botón con gesto long press -->
+           <StackLayout class="item-actions">
+             <Label 
+               class="fas action-icon" 
+               text="&#xf142;"
+               (tap)="onChangeCategory(product)"
+               (longPress)="onLongPress(product)">
+             </Label>
+           </StackLayout>
+         </FlexboxLayout>
+       </ng-template>
+     </ListView>
+ 
+     <Label *ngIf="products.length === 0" text="No se encontraron resultados" class="no-results"></Label>
+   </StackLayout>
+</GridLayout>

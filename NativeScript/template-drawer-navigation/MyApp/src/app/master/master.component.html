@@ -24,7 +24,8 @@
   </GridLayout>
 </ActionBar>
 
-<ListView height="100%" separatorColor="transparent" [items]="getFlicks()">
+<ListView height="100%" separatorColor="transparent" [items]="flickService.getFlicks()"
+  (itemTap)="onFlickTap($event)">
   <ng-template let-item="item">
     <GridLayout
       height="280"

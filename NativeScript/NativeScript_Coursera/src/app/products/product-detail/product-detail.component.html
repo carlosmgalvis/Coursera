@@ -1,0 +1,22 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" text="Detalle del Producto" col="1"></Label>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout class="page__content">
+  <StackLayout class="detail-container" *ngIf="product">
+    <StackLayout class="product-header">
+      <Label [text]="product.name" class="product-title"></Label>
+      <Label [text]="product.category" class="product-category-badge"></Label>
+    </StackLayout>
+    
+    <Label [text]="'$' + product.price" class="product-price-large"></Label>
+    
+    <Label [text]="product.description" class="product-description" textWrap="true"></Label>
+    
+    <Button text="← Volver a la lista" class="back-button" (tap)="onBackTap()"></Button>
+  </StackLayout>
+</GridLayout>

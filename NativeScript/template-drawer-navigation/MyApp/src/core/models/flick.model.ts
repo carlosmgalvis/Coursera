@@ -10,3 +10,8 @@ export interface FlickModel {
     body: string
   }[]
 }
+
+export interface DetailItem {
+  title: string;
+  body: string;
+}

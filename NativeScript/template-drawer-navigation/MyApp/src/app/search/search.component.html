@@ -1,3 +1,4 @@
+<!--
 <ActionBar class="action-bar">
   <NavigationButton visibility="hidden"></NavigationButton>
   <GridLayout columns="50, *">
@@ -6,8 +7,123 @@
     <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
   </GridLayout>
 </ActionBar>
+-->
+<ActionBar class="action-bar">
+  <GridLayout columns="50, *, auto">
+    <Label class="fas" col="0" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" col="1" text="Search Flicks"></Label>
+    <Label class="fas" col="2" text="&#xf002;" (tap)="onSearchTap()"></Label>
+  </GridLayout>
+</ActionBar>
 
-<GridLayout class="page__content">
-  <Label class="page__content-icon fas" text="&#xf002;"></Label>
-  <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
+<!-- Search Bar -->
+<GridLayout rows="auto, *" height="100%">
+  <StackLayout row="0" class="search-container" visibility="{{ isSearching ? 'visible' : 'collapsed' }}">
+    <GridLayout columns="*, auto" class="search-bar">
+      <SearchBar
+        col="0"
+        hint="Search by title, genre, or description..."
+        [text]="searchQuery"
+        (textChange)="onSearchTextChange($event)"
+        (submit)="onSearchSubmit($event)"
+        autocorrect="false"
+        class="search-input">
+      </SearchBar>
+      <Button
+        col="1"
+        title="Cancel"
+        text="Cancel"
+        (tap)="onSearchClose()"
+        class="cancel-button">
+      </Button>
+    </GridLayout>
+  </StackLayout>
+
+  <!-- Results Info -->
+  <StackLayout row="0" class="results-info" visibility="{{ !isSearching ? 'visible' : 'collapsed' }}">
+    <Label class="results-count" text="Showing {{ getResultCount() }} of {{ allFlicks.length }} flicks"></Label>
+  </StackLayout>
+
+  <!-- ListView with FlexboxLayout -->
+  <ListView
+    row="1"
+    height="100%"
+    separatorColor="transparent"
+    [items]="filteredFlicks"
+    (itemTap)="onFlickTap($event)">
+
+    <ng-template let-item="item" let-i="index">
+      <FlexboxLayout class="flick-card" flexDirection="row" flexWrap="nowrap" alignItems="center">
+
+        <!-- Image Section -->
+        <GridLayout class="image-container" width="120" height="120" margin="10">
+          <image
+            class="flick-image"
+            stretch="aspectFill"
+            [src]="item.image"
+            alt=""
+            loadMode="async">
+          </image>
+        </GridLayout>
+
+        <!-- Content Section -->
+        <FlexboxLayout class="content-container" flexDirection="column" flexGrow="1" margin="10 10 10 0">
+
+          <!-- Title Row -->
+          <FlexboxLayout class="title-row" flexDirection="row" alignItems="center" flexWrap="wrap">
+            <Label
+              class="flick-title"
+              fontWeight="700"
+              class="text-primary"
+              fontSize="16"
+              [text]="item.title">
+            </Label>
+
+            <!-- Genre Badge -->
+            <GridLayout class="genre-badge" borderRadius="12" marginLeft="8" padding="4 8">
+              <Label
+                class="genre-text"
+                fontSize="10"
+                fontWeight="600"
+                [text]="item.genre">
+              </Label>
+            </GridLayout>
+          </FlexboxLayout>
+
+          <!-- Description -->
+          <Label
+            class="flick-description"
+            fontSize="12"
+            class="text-secondary"
+            textWrap="true"
+            marginTop="4"
+            [text]="item.description">
+          </Label>
+
+          <!-- Details Preview -->
+          <FlexboxLayout class="details-preview" flexDirection="row" marginTop="8" flexWrap="wrap">
+            <Label class="detail-icon fas" text="&#xf02d;" marginRight="4"></Label>
+            <Label
+              class="detail-text"
+              fontSize="11"
+              class="text-secondary"
+              [text]="item.details.length + ' details'">
+            </Label>
+          </FlexboxLayout>
+        </FlexboxLayout>
+
+      </FlexboxLayout>
+    </ng-template>
+  </ListView>
 </GridLayout>
+
+<!-- No Results Message -->
+<StackLayout
+  *ngIf="filteredFlicks.length === 0 && searchQuery !== ''"
+  class="no-results"
+  verticalAlignment="center"
+  horizontalAlignment="center">
+  <Label class="fas no-results-icon" text="&#xf002;"></Label>
+  <Label class="no-results-text" text="No flicks found"></Label>
+  <Label class="no-results-subtext" text="Try a different search term"></Label>
+</StackLayout>

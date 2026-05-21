@@ -1,0 +1,38 @@
+/* Estilos base */
+.product-container {
+  padding: 16;
+}
+
+.platform-message {
+  font-size: 14;
+  color: #4CAF50;
+  padding: 8;
+  margin-bottom: 8;
+  background-color: #E8F5E9;
+  border-radius: 4;
+}
+
+.product-item {
+  padding: 16;
+  margin-bottom: 8;
+  background-color: #ffffff;
+  border-radius: 8;
+}
+
+.product-name {
+  font-size: 18;
+  font-weight: bold;
+  color: #333333;
+}
+
+.product-category {
+  font-size: 12;
+  color: #666666;
+  margin-top: 4;
+}
+
+.product-price {
+  font-size: 16;
+  font-weight: bold;
+  color: #2196F3;
+}
