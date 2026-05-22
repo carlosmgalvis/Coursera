@@ -72,7 +72,26 @@ export class DetailsComponent implements OnInit {
     }
   }
 
+  async onFavoriteTap(): Promise<void> {
+    if (!this.flick) return;
+
+    const isFavorite = this.flickService.toggleFavorite(this.flick.id);
+    // Update the local reference
+    this.flick.isFavorite = isFavorite;
+
+    await alert({
+      title: isFavorite ? 'Added to Favorites' : 'Removed from Favorites',
+      message: `${this.flick.title} has been ${isFavorite ? 'added to' : 'removed from'} your favorites.`,
+      okButtonText: 'OK'
+    });
+  }
+
   goToCart(): void {
     this.router.navigate(['/cart']);
   }
+
+  goToFavorites(): void {
+    this.router.navigate(['/featured']);
+  }
+
 }

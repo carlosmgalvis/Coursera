@@ -15,6 +15,8 @@ export class MasterComponent implements OnInit {
   flickService = inject(FlickService);
   cartService = inject(CartService);
   router = inject(RouterExtensions);
+  private isBuying = false; // Flag to prevent navigation when buying
+  private isFavoriting = false; // Flag to prevent navigation when toggling favorites
 
   ngOnInit(): void {}
 
@@ -29,16 +31,31 @@ export class MasterComponent implements OnInit {
 
   // This handles navigation to details
   onItemTap(args: any): void {
-    const index = args.index;
-    const flick = this.flickService.getFlicks()[index];
-    if (flick) {
-      console.log('Navigating to details for:', flick.title);
-      this.router.navigate(['/details', flick.id]);
+
+    // Don't navigate if we're in the middle of buying or favoriting
+    if (this.isBuying || this.isFavoriting) {
+      this.isBuying = false;
+      this.isFavoriting = false;
+      return;
     }
+
+ // Get index from args (could be object with index or direct number)
+ // const index = typeof args === 'object' ? args.index : args;
+ const index = args.index;
+ const flick = this.flickService.getFlicks()[index];
+  if (flick) {
+
+    console.log('Navigating to details for:', flick.title);
+
+    this.router.navigate(['/details', flick.id]);
+  }
   }
 
   // This handles the buy button tap
   async onBuyTap(flick: FlickModel): Promise<void> {
+    // Set flag to prevent navigation
+    this.isBuying = true;
+
     const result = await prompt({
       title: 'Add to Cart',
       message: `How many tickets for ${flick.title}?\nPrice: $${flick.ticketPrice.toFixed(2)} each\nAvailable: ${flick.availableTickets}`,
@@ -49,6 +66,7 @@ export class MasterComponent implements OnInit {
     });
 
     if (!result.result) {
+      this.isBuying = false;
       return;
     }
 
@@ -60,6 +78,7 @@ export class MasterComponent implements OnInit {
         message: 'Please enter a valid quantity.',
         okButtonText: 'OK'
       });
+      this.isBuying = false;
       return;
     }
 
@@ -78,13 +97,25 @@ export class MasterComponent implements OnInit {
         okButtonText: 'OK'
       });
     }
+
+    this.isBuying = false;
+  }
+
+  // This handles the favorite button tap
+  async onFavoriteTap(flick: FlickModel): Promise<void> {
+    // Set flag to prevent navigation
+    this.isFavoriting = true;
+
+    const isFavorite = this.flickService.toggleFavorite(flick.id);
+
+    this.isFavoriting = false;
   }
 
   goToCart(): void {
     this.router.navigate(['/cart']);
   }
 
-  goToSalesHistory(): void {
-    this.router.navigate(['/sales-history']);
+  goToFavorites(): void {
+    this.router.navigate(['/featured']);
   }
 }

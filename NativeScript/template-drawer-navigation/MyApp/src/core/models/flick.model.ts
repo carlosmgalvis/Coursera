@@ -7,6 +7,7 @@ export interface FlickModel {
   description: string
   ticketPrice: number
   availableTickets: number
+  isFavorite: boolean
   details: {
     title: string
     body: string
