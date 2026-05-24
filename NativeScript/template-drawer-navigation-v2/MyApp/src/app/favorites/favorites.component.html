@@ -1,0 +1,79 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Favorites" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  </GridLayout>
+   <ActionItem (tap)="goToCart()" ios.position="right" android.position="actionBar">
+    <Label text="🛒" class="fas"></Label>
+  </ActionItem>
+</ActionBar>
+
+<!-- Empty State -->
+<StackLayout
+  *ngIf="getFavorites().length === 0"
+  class="empty-state"
+  verticalAlignment="center"
+  horizontalAlignment="center">
+  <Label class="empty-icon" text="❤️" fontSize="64" opacity="0.5"></Label>
+  <Label class="empty-text" text="No favorites yet" fontSize="18" fontWeight="600" color="#495057" marginTop="10"></Label>
+  <Label class="empty-subtext" text="Tap the heart icon on any show to add it to favorites" fontSize="14" color="#adb5bd" textAlignment="center" marginTop="5"></Label>
+  <GridLayout (tap)="goToMaster()" backgroundColor="#007aff" borderRadius="8" padding="12 24" marginTop="20">
+    <Label text="Browse Shows" color="white" fontSize="14" fontWeight="600"></Label>
+  </GridLayout>
+</StackLayout>
+
+<!-- Favorites List -->
+<ListView
+  *ngIf="getFavorites().length > 0"
+  height="100%"
+  separatorColor="transparent"
+  [items]="getFavorites()"
+  (itemTap)="onItemTap($event)">
+
+  <ng-template let-item="item" let-i="index">
+    <GridLayout
+      height="400"
+      borderRadius="10"
+      class="bg-secondary"
+      rows="*, auto, auto, auto"
+      columns="*"
+      margin="12 10 0 10"
+      padding="0">
+
+      <image alt="" row="0" margin="0" stretch="aspectFill" [src]="item.image" height="200"></image>
+
+      <label
+        row="1"
+        margin="10 10 0 10"
+        fontWeight="700"
+        class="text-primary"
+        fontSize="18"
+        [text]="item.title">
+      </label>
+
+      <label
+        row="2"
+        margin="0 10 0 10"
+        class="text-secondary"
+        fontSize="14"
+        textWrap="true"
+        [text]="item.description">
+      </label>
+
+      <GridLayout row="3" columns="auto, *, auto, auto" margin="10">
+        <GridLayout col="0" (tap)="onFavoriteTap(item)" width="40" height="40" borderRadius="20" backgroundColor="transparent" marginRight="10">
+          <Label class="fas" text="❤️" fontSize="24" textAlignment="center" verticalAlignment="center" color="#ff4444"></Label>
+        </GridLayout>
+
+        <label col="1" text="${{ item.ticketPrice.toFixed(2) }}" fontSize="16" fontWeight="700" class="text-primary" verticalAlignment="center"></label>
+
+        <label col="2" text="{{ item.schedules?.length || 0 }} shows" fontSize="12" class="text-secondary" verticalAlignment="center" marginRight="10"></label>
+
+        <GridLayout col="3" (tap)="onBuyTap(item)" backgroundColor="#28a745" borderRadius="5" padding="10 15">
+          <Label text="Add to Cart" color="white" fontSize="14" fontWeight="600" textAlignment="center"></Label>
+        </GridLayout>
+      </GridLayout>
+    </GridLayout>
+  </ng-template>
+</ListView>

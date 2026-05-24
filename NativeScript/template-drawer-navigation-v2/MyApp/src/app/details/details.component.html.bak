@@ -1,0 +1,59 @@
+<ActionBar [title]="flick?.title || 'Details'" class="action-bar">
+  <NavigationButton text="Back" (tap)="goBack()"></NavigationButton>
+  <ActionItem (tap)="goToCart()" ios.position="right" android.position="actionBar">
+    <Label text="🛒" class="fas"></Label>
+  </ActionItem>
+</ActionBar>
+
+<ScrollView height="100%">
+  <StackLayout *ngIf="flick">
+    <image margin="0" alt="" stretch="aspectFill" [src]="flick.image" height="250"></image>
+
+    <!-- Show Info -->
+    <StackLayout padding="15">
+      <Label [text]="flick.title" fontSize="24" fontWeight="700" class="text-primary" textWrap="true"></Label>
+      <Label text="{{ flick.genre }}" fontSize="14" class="text-secondary" marginTop="5"></Label>
+      <Label text="{{ flick.description }}" fontSize="14" class="text-secondary" marginTop="10" textWrap="true"></Label>
+    </StackLayout>
+
+    <!-- Schedule Selection -->
+    <StackLayout padding="15" backgroundColor="#f8f9fa" marginTop="10">
+      <Label text="Select Show Time" fontSize="16" fontWeight="600" class="text-primary" marginBottom="10"></Label>
+
+      <GridLayout columns="*, auto" (tap)="selectSchedule()" backgroundColor="white" padding="12" borderRadius="8">
+        <Label col="0" [text]="selectedSchedule ? (getFormattedDate(selectedSchedule.scheduleDateTime) + ' at ' + getFormattedTime(selectedSchedule.scheduleDateTime)) : 'Select a date and time'" fontSize="14" class="text-primary"></Label>
+        <Label col="1" text="▼" fontSize="12" class="text-secondary"></Label>
+      </GridLayout>
+
+      <Label *ngIf="selectedSchedule" text="Available tickets: {{ selectedSchedule.availableTickets }}" fontSize="12" class="text-secondary" marginTop="5"></Label>
+    </StackLayout>
+
+    <!-- Price and Actions -->
+    <GridLayout columns="auto, *, auto" padding="15" backgroundColor="#f8f9fa" marginTop="10">
+      <!-- Favorite Button -->
+      <GridLayout col="0" (tap)="toggleFavorite()" width="50" height="50" borderRadius="25" backgroundColor="white" marginRight="15" horizontalAlignment="center" verticalAlignment="center">
+        <Label class="fas" [text]="flick.isFavorite ? '❤️' : '🤍'" fontSize="24" textAlignment="center" verticalAlignment="center" [color]="flick.isFavorite ? '#ff4444' : '#999999'"></Label>
+      </GridLayout>
+
+      <StackLayout col="1">
+        <Label text="Ticket Price" fontSize="12" class="text-secondary"></Label>
+        <Label text="${{ flick.ticketPrice.toFixed(2) }}" fontSize="28" fontWeight="700" class="text-primary"></Label>
+        <Label text="Duration: {{ flick.duration }} min" fontSize="12" class="text-secondary"></Label>
+      </StackLayout>
+
+      <GridLayout col="2" (tap)="addToCart()" backgroundColor="#28a745" borderRadius="8" padding="12 20" verticalAlignment="center" horizontalAlignment="center">
+        <Label text="Add to Cart" color="white" fontSize="14" fontWeight="600" textAlignment="center"></Label>
+      </GridLayout>
+    </GridLayout>
+
+    <!-- Show Details -->
+    <StackLayout padding="15" marginTop="10">
+      <Label text="Show Details" fontSize="18" fontWeight="700" class="text-primary" marginBottom="15"></Label>
+
+      <StackLayout *ngFor="let detail of flick.details" marginBottom="20">
+        <Label [text]="detail.title" fontSize="16" fontWeight="600" class="text-primary" marginBottom="5"></Label>
+        <Label [text]="detail.body" fontSize="14" class="text-secondary" textWrap="true"></Label>
+      </StackLayout>
+    </StackLayout>
+  </StackLayout>
+</ScrollView>

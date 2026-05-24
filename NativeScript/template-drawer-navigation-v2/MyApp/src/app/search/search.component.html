@@ -1,0 +1,128 @@
+<ActionBar class="action-bar">
+  <GridLayout columns="50, *, auto">
+    <Label class="fas" col="0" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" col="1" text="Search Shows"></Label>
+    <Label class="fas" col="2" text="&#xf002;" (tap)="onSearchTap()" marginRight="10"></Label>
+  </GridLayout>
+</ActionBar>
+
+<!-- Search Bar -->
+<GridLayout rows="auto, *" height="100%">
+  <StackLayout row="0" class="search-container" backgroundColor="#f5f5f5" padding="8 16" borderBottomWidth="1" borderBottomColor="#e0e0e0" visibility="{{ isSearching ? 'visible' : 'collapsed' }}">
+    <GridLayout columns="*, auto" class="search-bar" margin="8 0">
+      <SearchBar
+        col="0"
+        hint="Search by title, genre, or description..."
+        [text]="searchQuery"
+        (textChange)="onSearchTextChange($event)"
+        (submit)="onSearchSubmit($event)"
+        autocorrect="false"
+        class="search-input"
+        backgroundColor="white"
+        borderRadius="8"
+        marginRight="8"
+        padding="0 8">
+      </SearchBar>
+      <Button
+        col="1"
+        text="Cancel"
+        title="Cancel"
+        (tap)="onSearchClose()"
+        class="cancel-button"
+        backgroundColor="transparent"
+        color="#007aff"
+        textTransform="none"
+        fontSize="14"
+        fontWeight="500">
+      </Button>
+    </GridLayout>
+  </StackLayout>
+
+  <!-- Genre Filters -->
+  <ScrollView row="0" orientation="horizontal" class="genres-container" backgroundColor="white" padding="10" visibility="{{ !isSearching ? 'visible' : 'collapsed' }}">
+    <FlexboxLayout flexDirection="row">
+      <GridLayout *ngFor="let genre of genres" (tap)="filterByGenre(genre)" backgroundColor="{{ selectedGenre === genre || (genre === 'All' && !selectedGenre) ? '#007aff20' : '#f5f5f5' }}" borderRadius="20" padding="8 16" marginRight="8">
+        <Label [text]="genre" fontSize="14" fontWeight="500" color="{{ selectedGenre === genre || (genre === 'All' && !selectedGenre) ? '#007aff' : '#666' }}"></Label>
+      </GridLayout>
+    </FlexboxLayout>
+  </ScrollView>
+
+  <!-- Results Info -->
+  <StackLayout row="0" class="results-info" backgroundColor="#f5f5f5" padding="8 16" borderBottomWidth="1" borderBottomColor="#e0e0e0" visibility="{{ !isSearching ? 'visible' : 'collapsed' }}">
+    <GridLayout columns="*, auto">
+      <Label col="0" text="Showing {{ getResultCount() }} of {{ allFlicks.length }} shows" fontSize="12" color="#666"></Label>
+      <Label col="1" text="Clear Filters" fontSize="12" color="#007aff" (tap)="clearFilters()" *ngIf="selectedGenre || searchQuery"></Label>
+    </GridLayout>
+  </StackLayout>
+
+  <!-- Results List -->
+  <ListView
+    row="1"
+    height="100%"
+    separatorColor="transparent"
+    [items]="filteredFlicks"
+    (itemTap)="onItemTap($event)">
+
+    <ng-template let-item="item" let-i="index">
+      <GridLayout
+        height="400"
+        borderRadius="10"
+        class="bg-secondary"
+        rows="*, auto, auto, auto"
+        columns="*"
+        margin="12 10 0 10"
+        padding="0">
+
+        <image row="0" alt="" margin="0" stretch="aspectFill" [src]="item.image" height="200"></image>
+
+        <label
+          row="1"
+          margin="10 10 0 10"
+          fontWeight="700"
+          class="text-primary"
+          fontSize="18"
+          [text]="item.title">
+        </label>
+
+        <label
+          row="2"
+          margin="0 10 0 10"
+          class="text-secondary"
+          fontSize="14"
+          textWrap="true"
+          [text]="item.description">
+        </label>
+
+        <!-- Price, Favorite and Buy Button Section -->
+        <GridLayout row="3" columns="auto, *, auto, auto" margin="10">
+          <!-- Favorite Button -->
+          <GridLayout col="0" (tap)="onFavoriteTap(item)" width="40" height="40" borderRadius="20" backgroundColor="transparent" marginRight="10">
+            <Label class="fas" [text]="item.isFavorite ? '❤️' : '🤍'" fontSize="24" textAlignment="center" verticalAlignment="center" [color]="item.isFavorite ? '#ff4444' : '#999999'"></Label>
+          </GridLayout>
+
+          <!-- Price -->
+          <label col="1" text="${{ item.ticketPrice.toFixed(2) }}" fontSize="16" fontWeight="700" class="text-primary" verticalAlignment="center"></label>
+
+          <!-- Available shows count -->
+          <label col="2" text="{{ item.schedules?.length || 0 }} shows" fontSize="12" class="text-secondary" verticalAlignment="center" marginRight="10"></label>
+
+          <!-- Buy button -->
+          <GridLayout col="3" (tap)="onBuyTap(item)" backgroundColor="#28a745" borderRadius="5" padding="10 15">
+            <Label text="Add to Cart" color="white" fontSize="14" fontWeight="600" textAlignment="center"></Label>
+          </GridLayout>
+        </GridLayout>
+      </GridLayout>
+    </ng-template>
+  </ListView>
+</GridLayout>
+
+<!-- No Results Message -->
+<StackLayout
+  *ngIf="filteredFlicks.length === 0 && (searchQuery !== '' || selectedGenre)"
+  class="no-results"
+  verticalAlignment="center"
+  horizontalAlignment="center">
+  <Label class="fas no-results-icon" text="&#xf002;" fontSize="48" color="#ccc" marginBottom="16"></Label>
+  <Label class="no-results-text" text="No shows found" fontSize="18" fontWeight="600" color="#666" marginBottom="8"></Label>
+  <Label class="no-results-subtext" text="Try a different search term or genre" fontSize="14" color="#999" textAlignment="center"></Label>
+</StackLayout>

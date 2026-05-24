@@ -1,0 +1,30 @@
+.history-header {
+  background-color: #f8f9fa;
+  border-bottom-width: 1;
+  border-bottom-color: #dee2e6;
+}
+
+.total-sales {
+  font-size: 24;
+  font-weight: 700;
+}
+
+.sale-item {
+  background-color: white;
+  elevation: 2;
+  android-elevation: 2;
+}
+
+.item-badge {
+  background-color: #e7f1ff;
+  color: #007aff;
+  border-radius: 12;
+  padding: 4 8;
+}
+
+.item-badge-more {
+  background-color: #f8f9fa;
+  color: #6c757d;
+  border-radius: 12;
+  padding: 4 8;
+}

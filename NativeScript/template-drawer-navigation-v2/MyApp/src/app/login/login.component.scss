@@ -1,0 +1,32 @@
+.form {
+  padding: 20;
+}
+
+.input {
+  font-size: 16;
+  margin-bottom: 10;
+  padding: 10;
+  border-width: 1;
+  border-color: #ccc;
+  border-radius: 5;
+}
+
+.btn-primary {
+  background-color: #007aff;
+  color: white;
+  border-radius: 5;
+  padding: 12;
+  font-size: 16;
+  font-weight: 600;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: #007aff;
+  border-width: 1;
+  border-color: #007aff;
+  border-radius: 5;
+  padding: 12;
+  font-size: 16;
+  font-weight: 600;
+}

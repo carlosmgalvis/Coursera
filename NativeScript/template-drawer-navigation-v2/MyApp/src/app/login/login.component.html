@@ -1,0 +1,57 @@
+<ActionBar title="{{ isRegistering ? 'Register' : 'Login' }}" class="action-bar"></ActionBar>
+
+<ScrollView>
+  <StackLayout class="form" padding="20">
+    <Image src="~/assets/logo.png" alt="logo" stretch="aspectFit" height="100" marginBottom="20"></Image>
+
+    <TextField
+      hint="Email"
+      keyboardType="email"
+      autocorrect="false"
+      autocapitalizationType="none"
+      [(ngModel)]="email"
+      class="input"
+      marginBottom="10">
+    </TextField>
+
+    <TextField
+      hint="Password"
+      secure="true"
+      [(ngModel)]="password"
+      class="input"
+      marginBottom="10">
+    </TextField>
+
+    <TextField
+      *ngIf="isRegistering"
+      hint="Full Name"
+      [(ngModel)]="name"
+      class="input"
+      marginBottom="10">
+    </TextField>
+
+    <TextField
+      *ngIf="isRegistering"
+      hint="Phone Number"
+      keyboardType="phone"
+      [(ngModel)]="phone"
+      class="input"
+      marginBottom="20">
+    </TextField>
+
+    <Button
+      [text]="isRegistering ? 'Register' : 'Login'"
+      title="login"
+      (tap)="isRegistering ? onRegister() : onLogin()"
+      class="btn btn-primary"
+      marginBottom="10">
+    </Button>
+
+    <Button
+      [text]="isRegistering ? 'Back to Login' : 'Create Account'"
+      title="toggleMode"
+      (tap)="toggleMode()"
+      class="btn btn-outline">
+    </Button>
+  </StackLayout>
+</ScrollView>

@@ -1,0 +1,76 @@
+<ActionBar class="action-bar">
+  <NavigationButton visibility="hidden"></NavigationButton>
+  <GridLayout columns="50, *">
+    <Label class="action-bar-title" text="Purchase History" colSpan="2"></Label>
+    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+  <ActionItem (tap)="refresh()" ios.position="right" android.position="actionBar">
+    <Label text="⟳" class="fas"></Label>
+  </ActionItem>
+  </GridLayout>
+</ActionBar>
+
+<GridLayout rows="auto, *" height="100%">
+
+  <!-- Loading indicator -->
+  <StackLayout row="0" rowSpan="2" *ngIf="isLoading" verticalAlignment="center" horizontalAlignment="center">
+    <ActivityIndicator busy="true" width="50" height="50"></ActivityIndicator>
+    <Label text="Loading purchases..." marginTop="10" class="text-secondary"></Label>
+  </StackLayout>
+
+  <!-- Header with stats -->
+  <StackLayout row="0" class="history-header" padding="16" backgroundColor="#f8f9fa" *ngIf="!isLoading && purchases.length > 0">
+    <GridLayout columns="*, *, *">
+      <StackLayout col="0" horizontalAlignment="center">
+        <Label text="Total Spent" fontSize="11" class="text-secondary"></Label>
+        <Label text="{{ formatCurrency(totalSpent) }}" fontSize="18" fontWeight="700" color="#28a745"></Label>
+      </StackLayout>
+      <StackLayout col="1" horizontalAlignment="center">
+        <Label text="Tickets" fontSize="11" class="text-secondary"></Label>
+        <Label text="{{ totalTickets }}" fontSize="18" fontWeight="700" class="text-primary"></Label>
+      </StackLayout>
+      <StackLayout col="2" horizontalAlignment="center">
+        <Label text="Purchases" fontSize="11" class="text-secondary"></Label>
+        <Label text="{{ totalTransactions }}" fontSize="18" fontWeight="700" class="text-primary"></Label>
+      </StackLayout>
+    </GridLayout>
+  </StackLayout>
+
+  <!-- No purchases message -->
+  <StackLayout row="0" rowSpan="2" class="empty-state" *ngIf="!isLoading && purchases.length === 0" verticalAlignment="center" horizontalAlignment="center">
+    <Label text="🎫" fontSize="64" opacity="0.5"></Label>
+    <Label text="No purchases yet" fontSize="18" fontWeight="600" color="#495057" marginTop="10"></Label>
+    <Label text="Your purchase history will appear here" fontSize="14" color="#adb5bd" marginTop="5"></Label>
+    <GridLayout (tap)="goToMaster()" backgroundColor="#007aff" borderRadius="8" padding="12 24" marginTop="20">
+      <Label text="Browse Shows" color="white" fontSize="14" fontWeight="600"></Label>
+    </GridLayout>
+  </StackLayout>
+
+  <!-- Purchases List -->
+  <ListView row="1" [items]="purchases" *ngIf="!isLoading && purchases.length > 0" separatorColor="transparent">
+    <ng-template let-item="item" let-i="index">
+      <GridLayout class="purchase-item" rows="auto, auto, auto" columns="*, auto" margin="8 16" padding="12" borderRadius="8" backgroundColor="white" (tap)="viewPurchaseDetails(item)">
+
+        <StackLayout row="0" col="0">
+          <Label [text]="item.showTitle" fontSize="15" fontWeight="600" class="text-primary"></Label>
+          <Label text="{{ formatShortDate(item.scheduleDateTime) }} at {{ formatTime(item.scheduleDateTime) }}" fontSize="11" class="text-secondary" marginTop="4"></Label>
+        </StackLayout>
+
+        <StackLayout row="0" col="1" horizontalAlignment="right">
+          <Label text="{{ formatCurrency(item.totalAmount) }}" fontSize="16" fontWeight="700" class="text-primary"></Label>
+          <Label text="{{ item.quantity }} ticket(s)" fontSize="11" class="text-secondary"></Label>
+        </StackLayout>
+
+        <FlexboxLayout row="1" col="0" colSpan="2" flexDirection="row" alignItems="center" marginTop="8">
+          <Label text="🎟️" fontSize="12" marginRight="4"></Label>
+          <Label text="Purchased: {{ formatShortDate(item.saleDate) }}" fontSize="11" class="text-secondary"></Label>
+        </FlexboxLayout>
+
+        <GridLayout row="2" col="0" colSpan="2" marginTop="8" *ngIf="item.paymentMethod">
+          <Label text="💳 {{ item.paymentMethod }}" fontSize="10" class="text-secondary"></Label>
+        </GridLayout>
+
+      </GridLayout>
+    </ng-template>
+  </ListView>
+
+</GridLayout>
