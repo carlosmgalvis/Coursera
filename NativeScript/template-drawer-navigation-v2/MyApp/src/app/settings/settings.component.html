@@ -7,113 +7,45 @@
 </ActionBar>
 
 <ScrollView>
-  <StackLayout class="settings-container" backgroundColor="#f5f5f5">
+  <StackLayout class="settings-menu" padding="20">
 
-    <!-- User Information Section -->
-    <StackLayout class="section" backgroundColor="white" marginBottom="10" padding="15">
-      <Label text="👤 USER INFORMATION" fontSize="14" fontWeight="700" color="#007aff" marginBottom="15"></Label>
-
-      <!-- Email (Read Only) -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Email" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8">
-          <Label col="0" [text]="user.email || 'Not set'" fontSize="14" color="#333"></Label>
-          <Label col="1" text="📧" fontSize="16" opacity="0.5"></Label>
-        </GridLayout>
-        <Label text="Email cannot be changed" fontSize="10" color="#999" marginTop="4"></Label>
-      </StackLayout>
-
-      <!-- Name (Editable) -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Full Name" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editUserName()">
-          <Label col="0" [text]="user.name || 'Tap to add name'" fontSize="14" color="#333"></Label>
-          <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
+    <!-- Option 1: General Information -->
+    <GridLayout class="menu-option" (tap)="goToGeneralInfo()" marginBottom="15" backgroundColor="white" borderRadius="12" padding="20" elevation="2">
+      <StackLayout>
+        <GridLayout columns="auto, *">
+          <Label col="0" text="ℹ️" fontSize="32" marginRight="15" verticalAlignment="center"></Label>
+          <StackLayout col="1">
+            <Label text="General Information" fontSize="18" fontWeight="700" class="text-primary"></Label>
+            <Label text="View your account information" fontSize="13" class="text-secondary" marginTop="4" textWrap="true"></Label>
+          </StackLayout>
         </GridLayout>
       </StackLayout>
+    </GridLayout>
 
-      <!-- Phone (Editable) -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Phone Number" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editUserPhone()">
-          <Label col="0" [text]="user.phone || 'Tap to add phone'" fontSize="14" color="#333"></Label>
-          <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
+    <!-- Option 2: User Information -->
+    <GridLayout class="menu-option" (tap)="goToUserProfile()" marginBottom="15" backgroundColor="white" borderRadius="12" padding="20" elevation="2">
+      <StackLayout>
+        <GridLayout columns="auto, *">
+          <Label col="0" text="👤" fontSize="32" marginRight="15" verticalAlignment="center"></Label>
+          <StackLayout col="1">
+            <Label text="User Information" fontSize="18" fontWeight="700" class="text-primary"></Label>
+            <Label text="Edit your profile, name, phone, password and photo" fontSize="13" class="text-secondary" marginTop="4" textWrap="true"></Label>
+          </StackLayout>
         </GridLayout>
       </StackLayout>
+    </GridLayout>
 
-      <!-- Password (Editable) -->
-      <StackLayout class="info-row" marginBottom="5">
-        <Label text="Password" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editUserPassword()">
-          <Label col="0" text="••••••••" fontSize="14" color="#333"></Label>
-          <Label col="1" text="🔒" fontSize="16" color="#007aff"></Label>
+    <!-- Option 3: Advanced Settings -->
+    <GridLayout class="menu-option" (tap)="goToAdvancedSettings()" marginBottom="15" backgroundColor="white" borderRadius="12" padding="20" elevation="2">
+      <StackLayout>
+        <GridLayout columns="auto, *">
+          <Label col="0" text="⚙️" fontSize="32" marginRight="15" verticalAlignment="center"></Label>
+          <StackLayout col="1">
+            <Label text="Advanced Settings" fontSize="18" fontWeight="700" class="text-primary"></Label>
+            <Label text="Configure API URL, ports, timeout, retry attempts" fontSize="13" class="text-secondary" marginTop="4" textWrap="true"></Label>
+          </StackLayout>
         </GridLayout>
       </StackLayout>
-    </StackLayout>
-
-    <!-- API Configuration Section -->
-    <StackLayout class="section" backgroundColor="white" marginBottom="10" padding="15">
-      <Label text="⚙️ API CONFIGURATION" fontSize="14" fontWeight="700" color="#007aff" marginBottom="15"></Label>
-
-      <!-- Base URL -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Base URL" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editApiBaseUrl()">
-          <Label col="0" [text]="apiConfig.baseUrl" fontSize="12" color="#333" textWrap="true"></Label>
-          <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
-        </GridLayout>
-        <Label text="Example: https://your-server.ngrok-free.dev" fontSize="10" color="#999" marginTop="4"></Label>
-      </StackLayout>
-
-      <!-- Port -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Port" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editApiPort()">
-          <Label col="0" [text]="apiConfig.port" fontSize="14" color="#333"></Label>
-          <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
-        </GridLayout>
-      </StackLayout>
-
-      <!-- Timeout -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Request Timeout (ms)" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editApiTimeout()">
-          <Label col="0" [text]="apiConfig.timeout + ' ms'" fontSize="14" color="#333"></Label>
-          <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
-        </GridLayout>
-      </StackLayout>
-
-      <!-- Retry Attempts -->
-      <StackLayout class="info-row" marginBottom="15">
-        <Label text="Retry Attempts" fontSize="12" color="#666" marginBottom="4"></Label>
-        <GridLayout columns="*, auto" backgroundColor="#f8f9fa" padding="12" borderRadius="8" (tap)="editApiRetryAttempts()">
-          <Label col="0" [text]="apiConfig.retryAttempts" fontSize="14" color="#333"></Label>
-          <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
-        </GridLayout>
-      </StackLayout>
-
-      <!-- Current API URL Preview -->
-      <StackLayout class="preview-box" marginTop="10" padding="12" backgroundColor="#e7f1ff" borderRadius="8">
-        <Label text="Current API Endpoint" fontSize="10" color="#666"></Label>
-        <Label text="{{ getFullApiUrl() }}" fontSize="11" color="#007aff" textWrap="true" marginTop="4"></Label>
-      </StackLayout>
-
-      <!-- API Action Buttons -->
-      <GridLayout columns="*, *" marginTop="15">
-        <GridLayout col="0" (tap)="testApiConnection()" backgroundColor="#007aff" borderRadius="8" padding="10" marginRight="5">
-          <Label text="Test Connection" color="white" fontSize="13" fontWeight="500" textAlignment="center"></Label>
-        </GridLayout>
-        <GridLayout col="1" (tap)="resetApiConfig()" backgroundColor="#ff9800" borderRadius="8" padding="10" marginLeft="5">
-          <Label text="Reset to Default" color="white" fontSize="13" fontWeight="500" textAlignment="center"></Label>
-        </GridLayout>
-      </GridLayout>
-
-      <Label text="Note: Changes to API configuration require app restart" fontSize="10" color="#999" marginTop="10" textAlignment="center"></Label>
-    </StackLayout>
-
-    <!-- Logout Button -->
-    <GridLayout (tap)="logout()" backgroundColor="#dc3545" borderRadius="8" padding="15" margin="15" horizontalAlignment="stretch">
-      <Label text="Logout" color="white" fontSize="16" fontWeight="600" textAlignment="center"></Label>
     </GridLayout>
 
   </StackLayout>

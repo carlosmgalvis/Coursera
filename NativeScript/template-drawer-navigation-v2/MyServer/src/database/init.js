@@ -13,11 +13,11 @@ async function seedDatabase() {
   }
 
   // Create demo user
-  const hashedPassword = await bcrypt.hash('demo123', 10);
+  const hashedPassword = await bcrypt.hash('Demo123', 10);
   await db.run(
     `INSERT INTO users (email, password, name, phone, deviceId) 
      VALUES (?, ?, ?, ?, ?)`,
-    ['demo@example.com', hashedPassword, 'Demo User', '+1234567890', 'demo_device_001']
+    ['user@domain.com', hashedPassword, 'Carlos Galvis', '+573001234567', 'demo_device_001']
   );
 
   // Insert sample shows

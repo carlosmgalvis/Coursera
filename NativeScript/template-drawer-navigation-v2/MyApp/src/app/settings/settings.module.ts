@@ -3,6 +3,9 @@ import { NativeScriptCommonModule } from "@nativescript/angular";
 import { NativeScriptFormsModule } from "@nativescript/angular";
 import { SettingsRoutingModule } from "./settings-routing.module";
 import { SettingsComponent } from "./settings.component";
+import { GeneralInfoComponent } from "./general-info/general-info.component";
+import { UserProfileComponent } from "./user-profile/user-profile.component";
+import { AdvancedSettingsComponent } from "./advanced-settings/advanced-settings.component";
 
 @NgModule({
   imports: [
@@ -10,7 +13,12 @@ import { SettingsComponent } from "./settings.component";
     NativeScriptFormsModule,
     SettingsRoutingModule
   ],
-  declarations: [SettingsComponent],
+  declarations: [
+    SettingsComponent,
+    GeneralInfoComponent,
+    UserProfileComponent,
+    AdvancedSettingsComponent
+  ],
   schemas: [NO_ERRORS_SCHEMA]
 })
 export class SettingsModule {}

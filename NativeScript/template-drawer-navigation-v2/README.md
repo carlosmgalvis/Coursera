@@ -204,7 +204,7 @@ MyApp/
 
 | Login                   | Menu                  | Master                    |
 | ----------------------- | --------------------- | ------------------------- |
-| ![Login](img/login.jpg) | ![Menu](img/menu.jpg) | ![Master](img/Master.jpg) |
+| ![Login](img/login.jpg) | ![Menu](img/menu.jpg) | ![Master](img/master.jpg) |
 
 | Search                    | Favorite                      | Cart                  |
 | ------------------------- | ----------------------------- | --------------------- |

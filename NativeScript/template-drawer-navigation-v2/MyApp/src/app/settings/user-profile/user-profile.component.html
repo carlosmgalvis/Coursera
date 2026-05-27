@@ -1,0 +1,62 @@
+<ActionBar title="User Information" class="action-bar">
+  <NavigationButton text="Back" android.systemIcon="ic_menu_back" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout class="profile-container" padding="20">
+
+    <!-- Profile Image with Camera/Gallery Option -->
+    <StackLayout class="profile-image-container" horizontalAlignment="center" marginBottom="20">
+      <GridLayout (tap)="changeProfilePhoto()" width="130" height="130" borderRadius="65" backgroundColor="#f0f0f0" horizontalAlignment="center" verticalAlignment="center" overflow="hidden">
+        <Image [src]="profileImage" alt="" width="130" height="130" stretch="aspectFill" loadMode="async"></Image>
+        <GridLayout class="camera-overlay" width="130" height="130" backgroundColor="#00000080" horizontalAlignment="center" verticalAlignment="center" visibility="collapsed">
+          <StackLayout horizontalAlignment="center" verticalAlignment="center">
+            <Label text="📷" fontSize="28" color="white"></Label>
+            <Label text="Change Photo" fontSize="11" color="white" marginTop="4"></Label>
+          </StackLayout>
+        </GridLayout>
+      </GridLayout>
+      <Label text="Tap to change photo" fontSize="12" color="#007aff" marginTop="8" fontWeight="500"></Label>
+    </StackLayout>
+
+    <!-- Email (Read Only) -->
+    <StackLayout class="info-section" marginBottom="16" backgroundColor="white" borderRadius="12" padding="16" elevation="2">
+      <Label text="Email" fontSize="12" color="#666" marginBottom="4"></Label>
+      <GridLayout columns="*, auto">
+        <Label col="0" [text]="user.email || 'Not set'" fontSize="15" color="#333"></Label>
+        <Label col="1" text="📧" fontSize="16" opacity="0.5"></Label>
+      </GridLayout>
+      <Label text="Email cannot be changed" fontSize="10" color="#999" marginTop="4"></Label>
+    </StackLayout>
+
+    <!-- Name (Editable) -->
+    <StackLayout class="info-section" marginBottom="16" backgroundColor="white" borderRadius="12" padding="16" elevation="2" (tap)="editUserName()">
+      <Label text="Full Name" fontSize="12" color="#666" marginBottom="4"></Label>
+      <GridLayout columns="*, auto">
+        <Label col="0" [text]="user.name || 'Tap to add name'" fontSize="15" color="#333"></Label>
+        <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
+      </GridLayout>
+    </StackLayout>
+
+    <!-- Phone (Editable) -->
+    <StackLayout class="info-section" marginBottom="16" backgroundColor="white" borderRadius="12" padding="16" elevation="2" (tap)="editUserPhone()">
+      <Label text="Phone Number" fontSize="12" color="#666" marginBottom="4"></Label>
+      <GridLayout columns="*, auto">
+        <Label col="0" [text]="user.phone || 'Tap to add phone'" fontSize="15" color="#333"></Label>
+        <Label col="1" text="✏️" fontSize="16" color="#007aff"></Label>
+      </GridLayout>
+    </StackLayout>
+
+    <!-- Password (Editable) -->
+    <StackLayout class="info-section" marginBottom="16" backgroundColor="white" borderRadius="12" padding="16" elevation="2" (tap)="editUserPassword()">
+      <Label text="Password" fontSize="12" color="#666" marginBottom="4"></Label>
+      <GridLayout columns="*, auto">
+        <Label col="0" text="••••••••" fontSize="15" color="#333"></Label>
+        <Label col="1" text="🔒" fontSize="16" color="#007aff"></Label>
+      </GridLayout>
+    </StackLayout>
+
+    <ActivityIndicator *ngIf="isLoading" busy="true" marginTop="20"></ActivityIndicator>
+
+  </StackLayout>
+</ScrollView>
