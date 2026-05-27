@@ -23,23 +23,32 @@ export class FlickService {
     this.loadLocalData();
   }
 
-  private async loadLocalData(): Promise<void> {
+async loadLocalData(): Promise<void> {
+  try {
     // Load cached shows
     const cachedShows = await this.storageService.getOfflineData('shows');
-    if (cachedShows) {
+    if (cachedShows && cachedShows.length > 0) {
       this.flicks = cachedShows;
     }
 
     // Load favorites
-    const favorites = this.storageService.getItem<number[]>('favorites') || [];
-    this.favoritesSubject.next(favorites);
-
-    // Try to fetch fresh data if online
-    if (this.networkService.isConnected() && this.token) {
-      await this.fetchShowsFromServer();
-      await this.fetchFavoritesFromServer();
+    const favorites = this.storageService.getItem<number[]>('favorites');
+    if (favorites) {
+      this.favoritesSubject.next(favorites);
     }
+  } catch (error) {
+    console.error('Error loading local data:', error);
+    // Initialize with empty data if corrupted
+    this.flicks = [];
+    this.favoritesSubject.next([]);
   }
+
+  // Try to fetch fresh data if online
+  if (this.networkService.isConnected() && this.token) {
+    await this.fetchShowsFromServer();
+    await this.fetchFavoritesFromServer();
+  }
+}
 
   async fetchShowsFromServer(): Promise<void> {
     if (!this.networkService.isConnected() || !this.token) return;
@@ -165,4 +174,5 @@ export class FlickService {
     }
     return [];
   }
+
 }

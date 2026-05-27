@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit {
     phone: ''
   };
 
-  profileImage: string = '~/assets/default-avatar.png';
+  profileImage: string = '~/assets/default_avatar.png';
   isLoading: boolean = false;
 
   ngOnInit(): void {

@@ -5,7 +5,7 @@ import { Connectivity } from '@nativescript/core';
   providedIn: 'root'
 })
 export class NetworkService {
-  private connectionType: number;
+  private connectionType: number = -1;
 
   constructor() {
     this.connectionType = Connectivity.getConnectionType();
@@ -16,7 +16,7 @@ export class NetworkService {
   }
 
   isConnected(): boolean {
-    return this.connectionType !== Connectivity.connectionType.none;
+    return this.connectionType !== -1 && this.connectionType !== Connectivity.connectionType.none;
   }
 
   getConnectionType(): number {

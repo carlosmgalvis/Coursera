@@ -201,4 +201,25 @@ export class AdvancedSettingsComponent implements OnInit {
   goBack(): void {
     this.router.back();
   }
+
+async clearAllCache(): Promise<void> {
+  const result = await confirm({
+    title: 'Clear All Cache',
+    message: 'This will clear all offline data including shows, cart, and sales. Continue?',
+    okButtonText: 'Clear',
+    cancelButtonText: 'Cancel'
+  });
+
+  if (result) {
+    await this.storageService.clearAllOfflineData();
+    this.storageService.clear();
+
+    await alert({
+      title: 'Success',
+      message: 'All cache cleared. Restart the app to refresh data.',
+      okButtonText: 'OK'
+    });
+  }
+}
+
 }
