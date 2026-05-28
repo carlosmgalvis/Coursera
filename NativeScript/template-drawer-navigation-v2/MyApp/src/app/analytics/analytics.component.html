@@ -1,107 +1,128 @@
-<ActionBar class="action-bar">
-  <NavigationButton visibility="hidden"></NavigationButton>
-  <GridLayout columns="50, *">
-    <Label class="action-bar-title" text="Analytics" colSpan="2"></Label>
-    <Label class="fas" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
-  <ActionItem (tap)="loadAnalytics()" ios.position="right" android.position="actionBar">
+<!--
+<ActionBar title="Analytics Dashboard" class="action-bar">
+  <NavigationButton text="Back" (tap)="goToMaster()"></NavigationButton>
+  <ActionItem (tap)="refresh()" ios.position="right" android.position="actionBar">
+    <Label text="⟳" class="fas"></Label>
+  </ActionItem>
+  </ActionBar>
+-->
+  <ActionBar class="action-bar">
+    <GridLayout columns="50, *, auto">
+    <Label class="fas" col="0" text="&#xf0c9;" (tap)="onDrawerButtonTap()"></Label>
+    <Label class="action-bar-title" col="1" text="Analytics Dashboard"></Label>
+  <ActionItem (tap)="refresh()" ios.position="right" android.position="actionBar">
     <Label text="⟳" class="fas"></Label>
   </ActionItem>
   </GridLayout>
 </ActionBar>
 
-<ScrollView height="100%">
-  <StackLayout class="browse-container">
 
-    <!-- Loading indicator -->
-    <StackLayout *ngIf="isLoading" verticalAlignment="center" padding="50">
-      <ActivityIndicator busy="true" width="50" height="50"></ActivityIndicator>
-      <Label text="Loading analytics..." textAlignment="center" marginTop="10"></Label>
-    </StackLayout>
 
-    <StackLayout *ngIf="!isLoading && !analytics">
-      <StackLayout class="empty-state" verticalAlignment="center" padding="50" textAlignment="center">
-        <Label text="📊" fontSize="64" opacity="0.5" textAlignment="center"></Label>
-        <Label text="No data available" fontSize="18" fontWeight="600" color="#495057" textAlignment="center" marginTop="10"></Label>
-        <Label text="Make your first purchase to see analytics" fontSize="14" color="#adb5bd" textAlignment="center" marginTop="5"></Label>
-        <GridLayout (tap)="goToMaster()" backgroundColor="#007aff" borderRadius="8" padding="12 24" marginTop="20" horizontalAlignment="center">
-          <Label text="Browse Shows" color="white" fontSize="14" fontWeight="600"></Label>
-        </GridLayout>
-      </StackLayout>
-    </StackLayout>
 
-    <StackLayout *ngIf="!isLoading && analytics">
+<GridLayout rows="auto, auto, *" height="100%">
 
-      <!-- Summary Cards -->
-      <GridLayout columns="*, *" padding="10" margin="10">
-        <StackLayout col="0" class="summary-card" backgroundColor="white" borderRadius="8" padding="15" margin="5" elevation="2">
-          <Label text="Total Spent" fontSize="12" class="text-secondary"></Label>
-          <Label text="{{ formatCurrency(getTotalSpent()) }}" fontSize="24" fontWeight="700" color="#28a745" marginTop="5"></Label>
-        </StackLayout>
-        <StackLayout col="1" class="summary-card" backgroundColor="white" borderRadius="8" padding="15" margin="5" elevation="2">
-          <Label text="Total Tickets" fontSize="12" class="text-secondary"></Label>
-          <Label text="{{ formatNumber(getTotalTickets()) }}" fontSize="24" fontWeight="700" class="text-primary" marginTop="5"></Label>
-        </StackLayout>
-      </GridLayout>
-
-      <GridLayout columns="*, *" padding="10">
-        <StackLayout col="0" class="summary-card" backgroundColor="white" borderRadius="8" padding="15" margin="5" elevation="2">
-          <Label text="Transactions" fontSize="12" class="text-secondary"></Label>
-          <Label text="{{ formatNumber(getTotalTransactions()) }}" fontSize="20" fontWeight="700" class="text-primary" marginTop="5"></Label>
-        </StackLayout>
-        <StackLayout col="1" class="summary-card" backgroundColor="white" borderRadius="8" padding="15" margin="5" elevation="2">
-          <Label text="Avg. Transaction" fontSize="12" class="text-secondary"></Label>
-          <Label text="{{ formatCurrency(getAverageTransaction()) }}" fontSize="16" fontWeight="600" class="text-primary" marginTop="5"></Label>
-        </StackLayout>
-      </GridLayout>
-
-      <!-- Top Shows -->
-      <StackLayout class="section" backgroundColor="white" margin="10" padding="15" borderRadius="8">
-        <Label text="Top Shows" fontSize="18" fontWeight="700" class="text-primary" marginBottom="15"></Label>
-
-        <StackLayout *ngFor="let show of getTopShows()" marginBottom="15">
-          <GridLayout columns="*, auto">
-            <StackLayout col="0">
-              <Label [text]="show.showTitle" fontSize="14" fontWeight="600" class="text-primary"></Label>
-              <Label text="{{ show.totalTickets }} tickets" fontSize="11" class="text-secondary"></Label>
-            </StackLayout>
-            <StackLayout col="1" horizontalAlignment="right">
-              <Label text="{{ formatCurrency(show.totalSales) }}" fontSize="14" fontWeight="600" class="text-primary"></Label>
-              <Label text="{{ show.timesPurchased }} purchases" fontSize="11" class="text-secondary"></Label>
-            </StackLayout>
-          </GridLayout>
-          <Progress [value]="(show.totalSales / getTotalSpent()) * 100" maxValue="100" backgroundColor="#e0e0e0" color="#28a745" height="4" marginTop="8"></Progress>
-        </StackLayout>
-      </StackLayout>
-
-      <!-- Period Selector -->
-      <StackLayout class="section" backgroundColor="white" margin="10" padding="15" borderRadius="8">
-        <Label text="Sales Overview" fontSize="18" fontWeight="700" class="text-primary" marginBottom="15"></Label>
-
-        <GridLayout columns="*, *, *" marginBottom="20">
-          <GridLayout col="0" (tap)="changePeriod('day')" backgroundColor="{{ selectedPeriod === 'day' ? '#007aff20' : 'transparent' }}" borderRadius="8" padding="10">
-            <Label text="Day" textAlignment="center" fontSize="14" color="{{ selectedPeriod === 'day' ? '#007aff' : '#666' }}"></Label>
-          </GridLayout>
-          <GridLayout col="1" (tap)="changePeriod('week')" backgroundColor="{{ selectedPeriod === 'week' ? '#007aff20' : 'transparent' }}" borderRadius="8" padding="10">
-            <Label text="Week" textAlignment="center" fontSize="14" color="{{ selectedPeriod === 'week' ? '#007aff' : '#666' }}"></Label>
-          </GridLayout>
-          <GridLayout col="2" (tap)="changePeriod('month')" backgroundColor="{{ selectedPeriod === 'month' ? '#007aff20' : 'transparent' }}" borderRadius="8" padding="10">
-            <Label text="Month" textAlignment="center" fontSize="14" color="{{ selectedPeriod === 'month' ? '#007aff' : '#666' }}"></Label>
-          </GridLayout>
-        </GridLayout>
-
-        <StackLayout *ngFor="let period of getPeriodData()" marginBottom="10">
-          <GridLayout columns="*, auto">
-            <Label col="0" [text]="period.period" fontSize="14" class="text-primary"></Label>
-            <Label col="1" text="{{ formatCurrency(period.totalSales) }}" fontSize="14" fontWeight="600" class="text-primary"></Label>
-          </GridLayout>
-          <GridLayout columns="*, auto" marginTop="4">
-            <Label col="0" text="{{ period.transactionCount }} transactions" fontSize="11" class="text-secondary"></Label>
-            <Label col="1" text="{{ period.totalTickets }} tickets" fontSize="11" class="text-secondary"></Label>
-          </GridLayout>
-          <Progress [value]="(period.totalSales / getTotalSpent()) * 100" maxValue="100" backgroundColor="#e0e0e0" color="#007aff" height="4" marginTop="8"></Progress>
-        </StackLayout>
-      </StackLayout>
-
-    </StackLayout>
+  <!-- Loading indicator -->
+  <StackLayout row="0" rowSpan="3" *ngIf="isLoading" verticalAlignment="center" horizontalAlignment="center">
+    <ActivityIndicator busy="true" width="50" height="50"></ActivityIndicator>
+    <Label text="Loading analytics..." marginTop="10" class="text-secondary"></Label>
   </StackLayout>
-</ScrollView>
+
+  <StackLayout *ngIf="!isLoading">
+
+    <!-- Period Selector -->
+    <GridLayout row="0" columns="*, *, *" padding="10" backgroundColor="#f8f9fa">
+      <GridLayout col="0" (tap)="changePeriod('day')" backgroundColor="{{ selectedPeriod === 'day' ? '#007aff20' : 'transparent' }}" borderRadius="8" padding="10" margin="4">
+        <Label text="Day" textAlignment="center" fontSize="14" color="{{ selectedPeriod === 'day' ? '#007aff' : '#666' }}" fontWeight="{{ selectedPeriod === 'day' ? '600' : 'normal' }}"></Label>
+      </GridLayout>
+      <GridLayout col="1" (tap)="changePeriod('week')" backgroundColor="{{ selectedPeriod === 'week' ? '#007aff20' : 'transparent' }}" borderRadius="8" padding="10" margin="4">
+        <Label text="Week" textAlignment="center" fontSize="14" color="{{ selectedPeriod === 'week' ? '#007aff' : '#666' }}" fontWeight="{{ selectedPeriod === 'week' ? '600' : 'normal' }}"></Label>
+      </GridLayout>
+      <GridLayout col="2" (tap)="changePeriod('month')" backgroundColor="{{ selectedPeriod === 'month' ? '#007aff20' : 'transparent' }}" borderRadius="8" padding="10" margin="4">
+        <Label text="Month" textAlignment="center" fontSize="14" color="{{ selectedPeriod === 'month' ? '#007aff' : '#666' }}" fontWeight="{{ selectedPeriod === 'month' ? '600' : 'normal' }}"></Label>
+      </GridLayout>
+    </GridLayout>
+
+    <!-- Date Navigation -->
+    <GridLayout row="1" columns="auto, *, auto" padding="10" backgroundColor="white">
+      <GridLayout col="0" (tap)="goBack()" width="40" height="40" borderRadius="20" backgroundColor="#f0f0f0" horizontalAlignment="center" verticalAlignment="center">
+        <Label text="◀" fontSize="16" color="#007aff"></Label>
+      </GridLayout>
+      <Label col="1" text="{{ dateRangeLabel }}" fontSize="16" fontWeight="600" class="text-primary" textAlignment="center" verticalAlignment="center"></Label>
+      <GridLayout col="2" (tap)="goForward()" width="40" height="40" borderRadius="20" backgroundColor="#f0f0f0" horizontalAlignment="center" verticalAlignment="center">
+        <Label text="▶" fontSize="16" color="#007aff"></Label>
+      </GridLayout>
+    </GridLayout>
+
+    <ScrollView row="2">
+      <StackLayout class="analytics-container" padding="10">
+
+        <!-- No Data Message -->
+        <StackLayout *ngIf="getTotalTransactions() === 0" class="empty-state" padding="40" textAlignment="center">
+          <Label text="📊" fontSize="64" opacity="0.5" textAlignment="center"></Label>
+          <Label text="No sales data for this period" fontSize="16" fontWeight="600" color="#495057" textAlignment="center" marginTop="10"></Label>
+          <Label text="Make some purchases to see analytics" fontSize="13" color="#adb5bd" textAlignment="center" marginTop="5"></Label>
+        </StackLayout>
+
+        <!-- Summary Cards -->
+        <GridLayout *ngIf="getTotalTransactions() > 0" columns="*, *" margin="5">
+          <StackLayout col="0" class="summary-card" backgroundColor="white" borderRadius="12" padding="15" margin="5" elevation="2">
+            <Label text="Total Spent" fontSize="11" class="text-secondary"></Label>
+            <Label text="{{ formatCurrency(getTotalSpent()) }}" fontSize="20" fontWeight="700" color="#28a745" marginTop="5"></Label>
+          </StackLayout>
+          <StackLayout col="1" class="summary-card" backgroundColor="white" borderRadius="12" padding="15" margin="5" elevation="2">
+            <Label text="Total Tickets" fontSize="11" class="text-secondary"></Label>
+            <Label text="{{ formatNumber(getTotalTickets()) }}" fontSize="20" fontWeight="700" class="text-primary" marginTop="5"></Label>
+          </StackLayout>
+        </GridLayout>
+
+        <GridLayout *ngIf="getTotalTransactions() > 0" columns="*, *" margin="5">
+          <StackLayout col="0" class="summary-card" backgroundColor="white" borderRadius="12" padding="15" margin="5" elevation="2">
+            <Label text="Transactions" fontSize="11" class="text-secondary"></Label>
+            <Label text="{{ formatNumber(getTotalTransactions()) }}" fontSize="18" fontWeight="700" class="text-primary" marginTop="5"></Label>
+          </StackLayout>
+          <StackLayout col="1" class="summary-card" backgroundColor="white" borderRadius="12" padding="15" margin="5" elevation="2">
+            <Label text="Avg. Transaction" fontSize="11" class="text-secondary"></Label>
+            <Label text="{{ formatCurrency(getAverageTransaction()) }}" fontSize="16" fontWeight="600" class="text-primary" marginTop="5"></Label>
+          </StackLayout>
+        </GridLayout>
+
+        <!-- Top Shows -->
+        <StackLayout *ngIf="getTopShows().length > 0" class="section" backgroundColor="white" margin="10" padding="15" borderRadius="12" elevation="2">
+          <Label text="Top Shows" fontSize="18" fontWeight="700" class="text-primary" marginBottom="15"></Label>
+
+          <StackLayout *ngFor="let show of getTopShows()" marginBottom="15">
+            <GridLayout columns="*, auto">
+              <StackLayout col="0">
+                <Label [text]="show.showTitle" fontSize="14" fontWeight="600" class="text-primary" textWrap="true"></Label>
+                <Label text="{{ show.totalTickets }} tickets" fontSize="11" class="text-secondary"></Label>
+              </StackLayout>
+              <StackLayout col="1" horizontalAlignment="right">
+                <Label text="{{ formatCurrency(show.totalSales) }}" fontSize="14" fontWeight="600" class="text-primary"></Label>
+                <Label text="{{ show.timesPurchased }} purchases" fontSize="11" class="text-secondary"></Label>
+              </StackLayout>
+            </GridLayout>
+            <Progress [value]="(show.totalSales / getTotalSpent()) * 100" maxValue="100" backgroundColor="#e0e0e0" color="#28a745" height="4" marginTop="8"></Progress>
+          </StackLayout>
+        </StackLayout>
+
+        <!-- Sales Overview -->
+        <StackLayout *ngIf="getPeriodData().length > 0" class="section" backgroundColor="white" margin="10" padding="15" borderRadius="12" elevation="2">
+          <Label text="Sales Overview" fontSize="18" fontWeight="700" class="text-primary" marginBottom="15"></Label>
+
+          <StackLayout *ngFor="let period of getPeriodData()" marginBottom="15">
+            <GridLayout columns="*, auto">
+              <Label col="0" [text]="period.period" fontSize="14" class="text-primary"></Label>
+              <Label col="1" text="{{ formatCurrency(period.totalSales) }}" fontSize="14" fontWeight="600" class="text-primary"></Label>
+            </GridLayout>
+            <GridLayout columns="*, auto" marginTop="4">
+              <Label col="0" text="{{ period.transactionCount }} transactions" fontSize="11" class="text-secondary"></Label>
+              <Label col="1" text="{{ period.totalTickets }} tickets" fontSize="11" class="text-secondary"></Label>
+            </GridLayout>
+            <Progress [value]="(period.totalSales / getTotalSpent()) * 100" maxValue="100" backgroundColor="#e0e0e0" color="#007aff" height="4" marginTop="8"></Progress>
+          </StackLayout>
+        </StackLayout>
+
+      </StackLayout>
+    </ScrollView>
+  </StackLayout>
+</GridLayout>

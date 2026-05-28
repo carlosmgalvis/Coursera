@@ -2,21 +2,8 @@ import { RadSideDrawer } from 'nativescript-ui-sidedrawer'
 import { Application } from '@nativescript/core'
 import { Component, OnInit, inject } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
-import { ApiService } from '~/core/services/api.service';
-import { StorageService } from '~/core/services/storage.service';
-import { NetworkService } from '~/core/services/network.service';
+import { AnalyticsService, AnalyticsData } from '~/core/services/analytics.service';
 import { alert } from '@nativescript/core';
-
-interface AnalyticsData {
-  summary: {
-    totalTransactions: number;
-    totalTickets: number;
-    totalSpent: number;
-    averageTransaction: number;
-  };
-  salesByPeriod: any[];
-  salesByShow: any[];
-}
 
 @Component({
   selector: 'analytics',
@@ -24,79 +11,53 @@ interface AnalyticsData {
   styleUrls: ['./analytics.component.scss']
 })
 export class AnalyticsComponent implements OnInit {
-  private apiService = inject(ApiService);
-  private storageService = inject(StorageService);
-  private networkService = inject(NetworkService);
+  private analyticsService = inject(AnalyticsService);
   private router = inject(RouterExtensions);
 
-  analytics: AnalyticsData | null = null;
+  analyticsData: AnalyticsData | null = null;
   selectedPeriod: 'day' | 'week' | 'month' = 'month';
+  currentOffset: number = 0;
   isLoading: boolean = true;
-  showAnalytics: boolean = true;
+  dateRangeLabel: string = '';
 
   ngOnInit(): void {
-    this.loadAnalytics();
+    this.loadData();
   }
 
-  async loadAnalytics(): Promise<void> {
+  async loadData(): Promise<void> {
     this.isLoading = true;
-
-    if (this.networkService.isConnected()) {
-      try {
-        const response: any = await this.apiService.getSalesAnalytics().toPromise();
-        if (response && response.success) {
-          this.analytics = response.data;
-          await this.storageService.storeOfflineData('analytics', this.analytics);
-        }
-      } catch (error) {
-        console.error('Error fetching analytics:', error);
-        // Load from cache
-        const cached = await this.storageService.getOfflineData('analytics');
-        if (cached) {
-          this.analytics = cached;
-        }
-      }
-    } else {
-      // Load from cache
-      const cached = await this.storageService.getOfflineData('analytics');
-      if (cached) {
-        this.analytics = cached;
-      }
-    }
-
+    await this.analyticsService.loadSalesData();
+    this.updateAnalytics();
     this.isLoading = false;
   }
 
+  updateAnalytics(): void {
+    this.analyticsData = this.analyticsService.getAnalytics(this.selectedPeriod, this.currentOffset);
+    this.dateRangeLabel = this.analyticsService.getDateRangeLabel(this.selectedPeriod, this.currentOffset);
+  }
 
   changePeriod(period: 'day' | 'week' | 'month'): void {
     this.selectedPeriod = period;
-    // Re-process data based on period if needed
+    this.currentOffset = 0;
+    this.updateAnalytics();
   }
 
-  getPeriodData(): any[] {
-    if (!this.analytics) return [];
-    return this.analytics.salesByPeriod || [];
+  goBack(): void {
+    this.currentOffset--;
+    this.updateAnalytics();
   }
 
-  getTopShows(): any[] {
-    if (!this.analytics) return [];
-    return (this.analytics.salesByShow || []).slice(0, 5);
-  }
-
-  getTotalSpent(): number {
-    return this.analytics?.summary?.totalSpent || 0;
-  }
-
-  getTotalTickets(): number {
-    return this.analytics?.summary?.totalTickets || 0;
-  }
-
-  getTotalTransactions(): number {
-    return this.analytics?.summary?.totalTransactions || 0;
-  }
-
-  getAverageTransaction(): number {
-    return this.analytics?.summary?.averageTransaction || 0;
+  goForward(): void {
+    if (this.analyticsService.canGoForward(this.selectedPeriod, this.currentOffset - 1)) {
+      this.currentOffset--;
+      this.updateAnalytics();
+    } else {
+      alert({
+        title: 'Cannot Go Forward',
+        message: 'You cannot view future dates.',
+        okButtonText: 'OK'
+      });
+    }
   }
 
   goToMaster(): void {
@@ -111,9 +72,34 @@ export class AnalyticsComponent implements OnInit {
     return num.toLocaleString();
   }
 
+  getPeriodData(): any[] {
+    return this.analyticsData?.salesByPeriod || [];
+  }
+
+  getTopShows(): any[] {
+    return (this.analyticsData?.salesByShow || []).slice(0, 5);
+  }
+
+  getTotalSpent(): number {
+    return this.analyticsData?.summary?.totalSpent || 0;
+  }
+
+  getTotalTickets(): number {
+    return this.analyticsData?.summary?.totalTickets || 0;
+  }
+
+  getTotalTransactions(): number {
+    return this.analyticsData?.summary?.totalTransactions || 0;
+  }
+
+  getAverageTransaction(): number {
+    return this.analyticsData?.summary?.averageTransaction || 0;
+  }
   onDrawerButtonTap(): void {
     const sideDrawer = <RadSideDrawer>Application.getRootView()
     sideDrawer.showDrawer()
   }
-
+  refresh(): void {
+    this.loadData();
+  }
 }

@@ -95,6 +95,30 @@ npm run dev
 ```
 TEMPLATE-DRAWER-NAVIGATION/
 MyApp/
+├── App_Resources/
+│   ├── Android/
+│   │   ├── src/main/
+│   │   │   │   ├── res/
+│   │   │   │   │   ├── drawable/
+│   │   │   │   │   │   ├── default_avatar.png
+│   │   │   │   │   │   └── ic_launcher_foreground.xml
+│   │   │   │   │   ├── ...
+│   │   │   │   │   └── xml/
+│   │   │   │   │       └── file_paths.xml
+│   │   │   └── └── AndroidManifest.xml
+│   │   ├── app.gradle
+│   │   └── before-plugins.gradle
+│   ├── iOS/
+│   │   ├── Assets.xcassets/
+│   │   │   ├── AppIcon.appiconset/
+│   │   │   ├── LaunchScreen.AspectFill.imageset/
+│   │   │   ├── LanchScreen.Center.imageset/
+│   │   │   ├── Contents.json
+│   │   │   └── default_avatar.png
+│   │   ├── build.xcconfig
+│   │   ├── info.plist
+│   │   └── LaunchScreen.storyboard
+│   └── icon.png
 ├── src/
 │   ├── app/
 │   │   ├── analytics/
@@ -112,6 +136,7 @@ MyApp/
 │   │   ├── details/
 │   │   │   ├── detail-routing.module.ts
 │   │   │   ├── detail.component.html
+│   │   │   ├── detail.component.scss
 │   │   │   ├── detail.component.ts
 │   │   │   └── detail.module.ts
 │   │   ├── favorites/
@@ -150,6 +175,18 @@ MyApp/
 │   │   │   ├── search.component.ts
 │   │   │   └── search.module.ts
 │   │   ├── settings/
+│   │   │   ├── advanced-settings/
+│   │   │   │   ├── advanced-settings.component.html
+│   │   │   │   ├── advanced-settings.component.scss
+│   │   │   │   └── advanced-settings.component.ts
+│   │   │   ├── general-info/
+│   │   │   │   ├── general-info.component.html
+│   │   │   │   ├── general-info.component.scss
+│   │   │   │   └── general-info.component.ts
+│   │   │   ├── user-profile/
+│   │   │   │   ├── user-profile.component.html
+│   │   │   │   ├── user-profile.component.scss
+│   │   │   │   └── user-profile.component.ts
 │   │   │   ├── settings-routing.module.ts
 │   │   │   ├── settings.component.html
 │   │   │   ├── settings.component.scss

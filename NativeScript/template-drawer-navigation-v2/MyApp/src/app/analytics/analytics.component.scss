@@ -1,28 +1,33 @@
-.browse-container {
+.analytics-container {
   background-color: #f5f5f5;
+  min-height: 100%;
 }
 
 .summary-card {
   background-color: white;
-  border-radius: 8;
+  border-radius: 12;
   padding: 15;
   margin: 5;
+  elevation: 2;
 }
 
 .section {
   background-color: white;
   margin: 10;
   padding: 15;
-  border-radius: 8;
+  border-radius: 12;
+  elevation: 2;
 }
 
 .empty-state {
   text-align: center;
-  padding: 50;
+  padding: 40;
 }
 
-.progress-bar {
-  height: 4;
-  border-radius: 2;
-  margin-top: 8;
+.text-primary {
+  color: #212529;
+}
+
+.text-secondary {
+  color: #6c757d;
 }
