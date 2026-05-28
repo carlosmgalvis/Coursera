@@ -314,3 +314,11 @@ Al abrir la aplicación lo hace por login (si es la primera vez o hizo logout de
 | Paso 1                     | Paso 2                     | Paso 3                     |
 | -------------------------- | -------------------------- | -------------------------- |
 | ![Paso 1](img/1-login.jpg) | ![Paso 2](img/2-login.jpg) | ![Paso 3](img/3-login.jpg) |
+
+### Settings
+
+Se accede a consultar información acerca de la App y a editar información del usuario y parametros de conexión con el servidor.
+
+| General Information                          | User Information                | Advanced Settings                               |
+| -------------------------------------------- | ------------------------------- | ----------------------------------------------- |
+| ![General Information](img/general-info.jpg) | ![User Info](img/user-info.jpg) | ![Advanced Settings](img/advanced-settings.jpg) |
