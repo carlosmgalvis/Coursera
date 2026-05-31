@@ -91,7 +91,7 @@ npm install nodemon --save-dev
 
 | create                      | update                    |
 | ----------------------------- | ------------------------- |
-| ![Create](img/bicicletas_create.jpg) | ![Update](img/bicicleta_update.jpg) |
+| ![Create](img/bicicleta_create.jpg) | ![Update](img/bicicleta_update.jpg) |
 
 
 
