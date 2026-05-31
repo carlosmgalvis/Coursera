@@ -15,6 +15,8 @@ red-bicicletas/
 ├── bin/
 │   └── www
 ├── controllers/
+│   ├── api/
+│   │   └── bicicletaControllerAPI.js
 │   └── bicicleta.js
 ├── models/
 │   └── bicicleta.js
@@ -26,13 +28,14 @@ red-bicicletas/
 │   │   ├── demo-image-02.jpg
 │   │   ├── favicon.ico
 │   │   └── ipad.png
-│   ├── javascripts/
 │   ├── js/
 │   │   └── scripts.js
 │   ├── stylesheets/
 │   │   ├── style.css
 │   └── └── styles.css
 ├── routes/
+│   ├── api/
+│   │   └── bicicletas.js
 │   ├── bicicletas.js
 │   ├── index.js
 │   └── users.js
@@ -77,3 +80,24 @@ npm start
 ```
 
 npm install nodemon --save-dev
+
+
+
+### Pantallas web
+
+| map                  | bicicletas                    |
+| --------------------- | ------------------------- |
+| ![Map](img/map.jpg) | ![bicicletas](img/bicicletas.jpg) |
+
+| create                      | update                    |
+| ----------------------------- | ------------------------- |
+| ![Create](img/bicicletas_create.jpg) | ![Update](img/bicicleta_update.jpg) |
+
+
+
+
+### Pantallas API
+
+| create                  | update                    | delete                    |
+| --------------------- | ------------------------- | ------------------------- |
+| ![create](img/API_create.jpg) | ![update](img/API_update.jpg) | ![delete](img/API_delete.jpg) |
