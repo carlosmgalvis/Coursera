@@ -6,7 +6,7 @@
 
 ## 🚀 Description
 
-> Aplicación movil multiplataforma de catalogo y carrito de compras con persistencia local en el equipo.
+> Sitio Web y APIs red de bicicletas.
 
 ## 📁 Repository Layout
 

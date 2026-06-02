@@ -1,0 +1,122 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var BicicletaSchema = new Schema({
+    id: Number,
+    color: String,
+    modelo: String,
+    ubicacion: {
+        type: [Number], index: { type: '2dsphere', sparse: true }
+    }
+});
+
+BicicletaSchema.methods.toString = function() {
+    return 'id: ' + this.id + ' | color: ' + this.color;
+}
+
+BicicletaSchema.statics.createInstance = function(id, color, modelo, ubicacion) {
+    return new this({
+        id: id,
+        color: color,
+        modelo: modelo,
+        ubicacion: ubicacion
+    });
+}
+
+BicicletaSchema.statics.allBicis = [];
+BicicletaSchema.statics.add = function(aBici) {
+    this.allBicis.push(aBici);
+}
+BicicletaSchema.statics.findById = function(aBiciId) {
+    var aBici = this.allBicis.find(x => x.id == aBiciId);   
+    if (aBici) {
+        return aBici;
+    } else {
+        throw new Error(`No existe una bicicleta con el id ${aBiciId}`);
+    }   
+}
+BicicletaSchema.statics.removeById = function(aBiciId) {
+    for (var i = 0; i < this.allBicis.length; i++) {
+        if (this.allBicis[i].id == aBiciId) {
+            this.allBicis.splice(i, 1);
+            break;
+        }
+    }
+}   
+BicicletaSchema.statics.updateById = function(aBiciId, newBici) {
+    for (var i = 0; i < this.allBicis.length; i++) {   
+        if (this.allBicis[i].id == aBiciId) {   
+            this.allBicis[i].color = newBici.color;
+            this.allBicis[i].modelo = newBici.modelo;
+            this.allBicis[i].ubicacion = newBici.ubicacion;
+            break;
+        }
+    }
+}   
+
+BicicletaSchema.statics.allBicis = function(cb) {
+    return this.find({}, cb);
+}
+
+
+module.exports = mongoose.model('Bicicleta', BicicletaSchema);
+
+
+/*
+var Bicicleta = function(id, color, modelo, ubicacion) {
+    this.id = id;
+    this.color = color;
+    this.modelo = modelo;
+    this.ubicacion = ubicacion;
+}
+
+Bicicleta.prototype.toString = function() {
+    return 'id: ' + this.id + ' | color: ' + this.color;
+}
+
+Bicicleta.allBicis = [];
+Bicicleta.add = function(aBici) {
+    Bicicleta.allBicis.push(aBici);
+}
+
+Bicicleta.findById = function(aBiciId) {
+    var aBici = Bicicleta.allBicis.find(x => x.id == aBiciId);
+    if (aBici) {
+        return aBici;   
+    } else {
+        throw new Error(`No existe una bicicleta con el id ${aBiciId}`);
+    }
+}
+
+Bicicleta.removeById = function(aBiciId) {
+
+    for (var i = 0; i < Bicicleta.allBicis.length; i++) {
+        if (Bicicleta.allBicis[i].id == aBiciId) {
+            Bicicleta.allBicis.splice(i, 1);
+            break;
+        }
+    }
+}  
+
+Bicicleta.updateById = function(aBiciId, newBici) {
+
+    for (var i = 0; i < Bicicleta.allBicis.length; i++) {   
+        if (Bicicleta.allBicis[i].id == aBiciId) {
+            Bicicleta.allBicis[i].color = newBici.color;
+            Bicicleta.allBicis[i].modelo = newBici.modelo;
+            Bicicleta.allBicis[i].ubicacion = newBici.ubicacion;
+            break;
+        }   
+    }
+}
+
+var a= new Bicicleta(1, 'rojo', 'urbana', [-34.6012424, -58.3861497]);
+var b= new Bicicleta(2, 'verde', 'urbana', [-34.596932, -58.3888287]);
+var c= new Bicicleta(3, 'azul', 'urbana', [-34.599564, -58.3778777]);
+
+Bicicleta.add(a);
+Bicicleta.add(b);
+Bicicleta.add(c);
+
+module.exports = Bicicleta;
+*/
