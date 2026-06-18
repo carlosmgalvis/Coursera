@@ -1,0 +1,261 @@
+<?php
+require_once 'utils.php';
+
+$pdo = getDB();
+
+if (!isLoggedIn()) {
+    die("ACCESS DENIED");
+}
+
+if (!isset($_GET['profile_id'])) {
+    die("Missing profile_id");
+}
+
+$profile_id = $_GET['profile_id'];
+
+// Check if profile belongs to user
+if (!profileBelongsToUser($pdo, $profile_id, $_SESSION['user_id'])) {
+    die("You don't have permission to edit this profile");
+}
+
+if (isset($_POST['cancel'])) {
+    header("Location: index.php");
+    return;
+}
+
+if (isset($_POST['first_name'])) {
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $headline = $_POST['headline'];
+    $summary = $_POST['summary'];
+    
+    // Validate fields
+    $errors = array();
+    if (empty($first_name) || empty($last_name) || empty($email) || 
+        empty($headline) || empty($summary)) {
+        $errors[] = "All fields are required";
+    }
+    
+    if (strpos($email, '@') === false) {
+        $errors[] = "Email address must contain @";
+    }
+    
+    // Validate positions
+    $pos_validate = validatePositions();
+    if ($pos_validate !== true) {
+        $errors[] = $pos_validate;
+    }
+    
+    // Validate education
+    $edu_validate = validateEducation();
+    if ($edu_validate !== true) {
+        $errors[] = $edu_validate;
+    }
+    
+    if (count($errors) > 0) {
+        $_SESSION['error'] = implode("<br>", $errors);
+        header("Location: edit.php?profile_id=" . $profile_id);
+        return;
+    }
+    
+    // Update profile
+    $stmt = $pdo->prepare("UPDATE Profile SET first_name = :fn, last_name = :ln, email = :em, headline = :he, summary = :su WHERE profile_id = :pid");
+    $stmt->execute(array(
+        ":fn" => $first_name,
+        ":ln" => $last_name,
+        ":em" => $email,
+        ":he" => $headline,
+        ":su" => $summary,
+        ":pid" => $profile_id
+    ));
+    
+    // Delete old positions
+    $stmt = $pdo->prepare("DELETE FROM Position WHERE profile_id = :pid");
+    $stmt->execute(array(":pid" => $profile_id));
+    
+    // Insert new positions
+    insertPositions($pdo, $profile_id);
+    
+    // Delete old education
+    $stmt = $pdo->prepare("DELETE FROM Education WHERE profile_id = :pid");
+    $stmt->execute(array(":pid" => $profile_id));
+    
+    // Insert new education
+    insertEducation($pdo, $profile_id);
+    
+    $_SESSION['success'] = "Profile updated successfully";
+    header("Location: index.php");
+    return;
+}
+
+// Get profile data
+$sql = "SELECT profile_id, user_id, first_name, last_name, email, headline, summary FROM Profile WHERE profile_id = :pid";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(array(":pid" => $profile_id));
+$profile = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($profile === false) {
+    $_SESSION['error'] = "Profile not found";
+    header("Location: index.php");
+    return;
+}
+
+// Get positions
+$sql = "SELECT position_id, profile_id, `rank`, `year`, `description` FROM `position` WHERE profile_id = :pid ORDER BY `rank`";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(array(":pid" => $profile_id));
+$positions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Get education
+$stmt = $pdo->prepare("SELECT Education.year, Institution.name FROM Education JOIN Institution ON Education.institution_id = Institution.institution_id WHERE Education.profile_id = :pid ORDER BY Education.rank");
+$stmt->execute(array(":pid" => $profile_id));
+$educations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$posCount = count($positions);
+$eduCount = count($educations);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Name - Edit Profile</title>
+    <link rel="stylesheet" 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+        crossorigin="anonymous">
+    <link rel="stylesheet" 
+        href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+        integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Profile</h1>
+        <?php displayMessages(); ?>
+        <form method="POST">
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" name="first_name" size="60" class="form-control"
+                    value="<?php echo htmlentities($profile['first_name']); ?>">
+            </div>
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" name="last_name" size="60" class="form-control"
+                    value="<?php echo htmlentities($profile['last_name']); ?>">
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="text" name="email" size="60" class="form-control"
+                    value="<?php echo htmlentities($profile['email']); ?>">
+            </div>
+            <div class="form-group">
+                <label>Headline:</label>
+                <input type="text" name="headline" size="80" class="form-control"
+                    value="<?php echo htmlentities($profile['headline']); ?>">
+            </div>
+            <div class="form-group">
+                <label>Summary:</label>
+                <textarea name="summary" rows="8" cols="80" class="form-control"><?php echo htmlentities($profile['summary']); ?></textarea>
+            </div>
+            
+            <div id="position_fields">
+                <div class="form-group">
+                    <label>Positions:</label>
+                    <input type="button" id="addPos" value="+" class="btn btn-default">
+                </div>
+                <?php 
+                $posIndex = 0;
+                foreach ($positions as $position):
+                    $posIndex++;
+                ?>
+                <div id="position<?php echo $posIndex; ?>">
+                    <p>Year: <input type="text" name="year<?php echo $posIndex; ?>" value="<?php echo htmlentities($position['year']); ?>">
+                    <input type="button" value="-" onclick="$('#position<?php echo $posIndex; ?>').remove(); return false;"></p>
+                    <textarea name="desc<?php echo $posIndex; ?>" rows="8" cols="80"><?php echo htmlentities($position['description']); ?></textarea>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <div id="education_fields">
+                <div class="form-group">
+                    <label>Education:</label>
+                    <input type="button" id="addEdu" value="+" class="btn btn-default">
+                </div>
+                <?php 
+                $eduIndex = 0;
+                foreach ($educations as $education):
+                    $eduIndex++;
+                ?>
+                <div id="education<?php echo $eduIndex; ?>">
+                    <p>Year: <input type="text" name="edu_year<?php echo $eduIndex; ?>" value="<?php echo htmlentities($education['year']); ?>">
+                    <input type="button" value="-" onclick="$('#education<?php echo $eduIndex; ?>').remove(); return false;"></p>
+                    <p>School: <input type="text" size="80" name="edu_school<?php echo $eduIndex; ?>" class="school" value="<?php echo htmlentities($education['name']); ?>" /></p>
+                </div>
+                <?php endforeach; ?>
+            </div>
+            
+            <p>
+                <input type="submit" value="Save" class="btn btn-primary">
+                <input type="submit" name="cancel" value="Cancel" class="btn btn-default">
+            </p>
+        </form>
+        
+        <script>
+        countPos = <?php echo $posIndex; ?>;
+        countEdu = <?php echo $eduIndex; ?>;
+        
+        $(document).ready(function(){
+            // Position autocomplete
+            $('#addPos').click(function(event){
+                event.preventDefault();
+                if (countPos >= 9) {
+                    alert("Maximum of nine position entries exceeded");
+                    return;
+                }
+                countPos++;
+                
+                $('#position_fields').append(
+                    '<div id="position'+countPos+'"> \
+                    <p>Year: <input type="text" name="year'+countPos+'" value="" /> \
+                    <input type="button" value="-" onclick="$(\'#position'+countPos+'\').remove(); return false;"></p> \
+                    <textarea name="desc'+countPos+'" rows="8" cols="80"></textarea> \
+                    </div>'
+                );
+            });
+            
+            // Education autocomplete
+            $('#addEdu').click(function(event){
+                event.preventDefault();
+                if (countEdu >= 9) {
+                    alert("Maximum of nine education entries exceeded");
+                    return;
+                }
+                countEdu++;
+                
+                $('#education_fields').append(
+                    '<div id="education'+countEdu+'"> \
+                    <p>Year: <input type="text" name="edu_year'+countEdu+'" value="" /> \
+                    <input type="button" value="-" onclick="$(\'#education'+countEdu+'\').remove(); return false;"></p> \
+                    <p>School: <input type="text" size="80" name="edu_school'+countEdu+'" class="school" value="" /></p> \
+                    </div>'
+                );
+                
+                // Initialize autocomplete for the new school field
+                $('.school').autocomplete({
+                    source: "school.php"
+                });
+            });
+            
+            // Initialize autocomplete for existing school fields
+            $('.school').autocomplete({
+                source: "school.php"
+            });
+        });
+        </script>
+    </div>
+</body>
+</html>
