@@ -1,4 +1,4 @@
-33# habit_tracker
+# expense_manager
 
 A new Flutter project.
 
