@@ -1,0 +1,68 @@
+.health-blog-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 7.5rem 1.5rem 3rem;
+}
+
+.health-blog-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.health-blog-header h1 {
+  color: #0f2e63;
+  margin: 0;
+}
+
+.health-blog-header p {
+  color: #66758f;
+  margin-top: 0.8rem;
+}
+
+.health-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.health-blog-card {
+  background: #fff;
+  border: 1px solid #dce6f5;
+  border-radius: 22px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 38px rgba(15, 46, 99, 0.08);
+  text-align: left;
+}
+
+.health-blog-category {
+  color: #1f5fc2;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.health-blog-card h2 {
+  color: #0f2e63;
+  margin: 0.8rem 0;
+  font-size: 1.35rem;
+}
+
+.health-blog-card p {
+  color: #66758f;
+  line-height: 1.6;
+}
+
+.health-blog-button {
+  width: auto;
+  margin-top: 1.25rem;
+  padding: 0.8rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid #1f5fc2;
+  background: #fff;
+  color: #1f5fc2;
+}
+
+@media (max-width: 900px) {
+  .health-blog-grid {
+    grid-template-columns: 1fr;
+  }
+}

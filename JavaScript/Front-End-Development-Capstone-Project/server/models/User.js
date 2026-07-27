@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = require('mongoose');
 
 const userSchema = new Schema({
+    role: {
+        type: String,
+        enum: ['Doctor', 'Patient'],
+        required: true,
+    },
     email: { 
         type: String,
         required: true,

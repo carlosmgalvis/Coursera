@@ -9,6 +9,11 @@ const passport = require('passport');
 
 
 const dotenv = require('dotenv');
+const {
+    createUser,
+    findUserByEmail,
+    updateUserByEmail,
+} = require('../utils/userStore');
 dotenv.config();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'thisiscodeformediclapplicationwhich isbuiltinreactappproject';
@@ -38,19 +43,20 @@ passport.deserializeUser(function (id, cb) {
 
 // Route 1: Registering A New User: POST: http://localhost:8181/api/auth/register. No Login Required
 router.post('/register',[
+    body('role', 'Please select a valid role.').isIn(['Doctor', 'Patient']),
     body('email', "Please Enter a Vaild Email").isEmail(),
     body('name', "Username should be at least 4 characters.").isLength({ min: 4 }),
     body('password', "Password Should Be At Least 8 Characters.").isLength({ min: 8 }),
-    body('phone', "Phone Number Should Be 10 Digits.").isLength({ min: 10 }),
+    body('phone', "Phone Number Should Be 10 Digits.").isLength({ min: 10 }).isNumeric(),
 ], async (req, res) => {
 
     const error = validationResult(req);
     if(!error.isEmpty()){
-        return res.status(400).json({error: error.array()});
+        return res.status(400).json({ errors: error.array() });
     }
 
     try {
-        const checkMultipleUser1 = await UserSchema.findOne({ email : req.body.email });
+        const checkMultipleUser1 = await findUserByEmail(req.body.email);
         if(checkMultipleUser1){
             return res.status(403).json({ error: "A User with this email address already exists" });
         }
@@ -58,12 +64,12 @@ router.post('/register',[
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(req.body.password, salt);
         
-        const newUser =  await UserSchema.create({
+        const newUser =  await createUser({
+            role: req.body.role,
             email: req.body.email,
             name: req.body.name,
             password: hash,
             phone: req.body.phone,
-            createdAt: Date(),
         });
 
         const payload = {
@@ -92,12 +98,9 @@ router.post('/login', [
 
     try {
       
-        const theUser = await UserSchema.findOne({ email: req.body.email }); // <-- Change req.body.username to req.body.name
-            // console.log('my',theUser.name);
-        // req.session.name=theUser.name
-        req.session.email = req.body.email; // <-- Change req.body.username to req.body.name
+        const theUser = await findUserByEmail(req.body.email);
+        req.session.email = req.body.email;
         console.log(req.session.email);
-        // console.log(req.session.name);
         if (theUser) {
             let checkHash = await bcrypt.compare(req.body.password, theUser.password);
             if (checkHash) {
@@ -159,13 +162,13 @@ router.put('/update', [
 // Route 4: Fetch user data based on the email: GET: http://localhost:8181/api/auth/user
 router.get('/user', async (req, res) => {
     try {
-      const email = req.headers.email; // Extract the email from the request headers
+        const email = req.headers.email; // Extract the email from the request headers
 
         if (!email) {
             return res.status(400).json({ error: "Email not found in the request headers" });
         }
     
-        const user = await UserSchema.findOne({ email });
+        const user = await findUserByEmail(email);
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
@@ -203,16 +206,15 @@ router.put('/user', [
             return res.status(400).json({ error: "Email not found in the request headers" });
         }
     
-        const existingUser = await UserSchema.findOne({ email });
+        const existingUser = await findUserByEmail(email);
         if (!existingUser) {
             return res.status(404).json({ error: "User not found" });
         }
     
-        existingUser.name = req.body.name;
-        existingUser.phone = req.body.phone;
-        existingUser.updatedAt = Date();
-    
-        const updatedUser = await existingUser.save();
+        const updatedUser = await updateUserByEmail(email, {
+            name: req.body.name,
+            phone: req.body.phone,
+        });
     
         const payload = {
             user: {

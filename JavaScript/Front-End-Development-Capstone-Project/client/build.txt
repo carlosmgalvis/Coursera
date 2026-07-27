@@ -1,0 +1,13 @@
+anandinamdar@Anands-MacBook-Air med_appt % npm run build
+
+> med_appt@0.0.0 build
+> vite build
+
+vite v8.1.0 building client environment for production...
+✓ 59 modules transformed.
+computing gzip size...
+dist/index.html                   1.54 kB │ gzip:  0.70 kB
+dist/assets/index-DvCY7MbR.css   24.09 kB │ gzip:  5.36 kB
+dist/assets/index-k-KWjf1z.js   267.98 kB │ gzip: 83.17 kB
+
+✓ built in 129ms

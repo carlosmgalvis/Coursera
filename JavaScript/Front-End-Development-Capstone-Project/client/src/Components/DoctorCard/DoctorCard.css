@@ -1,0 +1,153 @@
+.doctor-card-container {
+  width: 300px;
+  border: 1px solid #dbe5f4;
+  border-radius: 18px;
+  overflow: hidden;
+  display: inline-block;
+  margin: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 18px 38px rgba(15, 46, 99, 0.08);
+  background: #fff;
+}
+
+.doctor-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 15px;
+  color: #0f2e63;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.doctor-card-details-container {
+  padding: 20px;
+}
+
+.doctor-card-profile-image-container {
+  text-align: center;
+}
+
+.doctor-card-profile-image-container img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.doctor-card-details {
+  text-align: center;
+}
+
+.doctor-card-detail-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #0f2e63;
+}
+
+.doctor-card-detail-speciality {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.doctor-card-detail-experience {
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.doctor-card-detail-consultationfees {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.doctor-card-stars {
+  color: #f7c948;
+}
+
+/* Fixed class name */
+.book-appointment-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #0f2e63 0%, #2464c5 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.book-appointment-btn:hover {
+  background: linear-gradient(135deg, #0d2753 0%, #1f57af 100%);
+}
+
+.book-appointment-btn div:last-child {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.cancel-appointment {
+  background: #f44336;
+}
+
+.cancel-appointment:hover {
+  background: #d32f2f;
+}
+
+.bookedInfo {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 14px;
+  background: #f7faff;
+  border: 1px solid #dbe5f4;
+  text-align: left;
+}
+
+.bookedInfo h3 {
+  color: #0f2e63;
+  margin-bottom: 0.8rem;
+}
+
+.bookedInfo-cancel {
+  margin-top: 1rem;
+  width: 100%;
+  background: #f44336;
+}
+
+.bookedInfo-cancel:hover {
+  background: #d32f2f;
+}
+
+.appointment-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  cursor: pointer;
+}

@@ -1,28 +1,34 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://root:CrTWYLo9eXcXpKumj4wUUoj4@172.21.169.162:27017";
+const mongoURI = "mongodb://root:Ihe0DybRXi4AWwyhj2wbF2wc@172.21.142.187:27017";
 
-const connectToMongo = async (retryCount = 0) => {
+const connectToMongo = async (retryCount) => {
     const MAX_RETRIES = 3;
+    const count = retryCount ?? 0;
     try {
-        await mongoose.connect(mongoURI, {
-            dbName: 'health',
-            authSource: 'admin',
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.info('✅ Connected to MongoDB Successfully');
-    } catch (error) {
-        console.error(`❌ Connection attempt ${retryCount + 1} failed:`, error.message);
+        await mongoose.connect(mongoURI, { dbName: 'stayhealthybeta1'});
+        console.info('Connected to Mongo Successfully')
 
-        if (retryCount + 1 >= MAX_RETRIES) {
-            throw new Error('Unable to connect to MongoDB after several retries.');
+        return;
+    } catch (error) {
+        console.error(error);
+
+        const nextRetryCount = count + 1;
+
+        if (nextRetryCount >= MAX_RETRIES) {
+            console.error('Unable to connect to Mongo. Falling back to local file storage for auth.');
+            return false;
         }
 
-        console.info(`🔄 Retrying in 2 seconds... (${retryCount + 1})`);
-        await new Promise(res => setTimeout(res, 2000));
+        console.info(`Retrying, retry count: ${nextRetryCount}`)
 
-        return connectToMongo(retryCount + 1);
+        return await connectToMongo(nextRetryCount);
+
     }
 };
 
-module.exports = connectToMongo;
+const isMongoConnected = () => mongoose.connection.readyState === 1;
+
+module.exports = {
+    connectToMongo,
+    isMongoConnected,
+};
