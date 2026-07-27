@@ -46,42 +46,102 @@ This project implements a modern architecture based on React + Vite for the fron
 front-end-development-capstone-project/
 ├── client/                             # Front-end (React + Vite)
 │   ├── public/
-│   │   └── vite.svg
+│   │   └── favicon.svg
 │   ├── src/
 │   │   ├── assets/
 │   │   │   └── react.svg
 │   │   ├── components/
+│   │   │   ├── AppointmentForm/
+│   │   │   │   └── AppointmentForm.jsx
+│   │   │   ├── BestServices/
+│   │   │   │   ├── BestServices.css
+│   │   │   │   └── BestServices.jsx
+│   │   │   ├── DoctorCard/
+│   │   │   │   ├── DoctorCard.css
+│   │   │   │   └── DoctorCard.jsx
+│   │   │   ├── FindDoctorSearch/
+│   │   │   │   ├── FindDoctorSearch.css
+│   │   │   │   └── FindDoctorSearch.jsx
+│   │   │   ├── HealthBlog/
+│   │   │   │   ├── HealthBlog.css
+│   │   │   │   └── HealthBlog.jsx
+│   │   │   ├── InstantConsultationBooking/
+│   │   │   │   ├── AppointmentFormIC/
+│   │   │   │   │   └── AppointmentFormIC.jsx
+│   │   │   │   ├── DoctorCardIC/
+│   │   │   │   │   ├── DoctorCardIC.css
+│   │   │   │   │   └── DoctorCardIC.jsx
+│   │   │   │   ├── FindDoctorSearchIC/
+│   │   │   │   │   ├── FindDoctorSearchIC.css
+│   │   │   │   │   └── FindDoctorSearchIC.jsx
+│   │   │   │   ├── InstantConsultation.css
+│   │   │   │   └── InstantConsultation.jsx
 │   │   │   ├── Landing_Page/
-│   │   │   │   ├── Landing.tsx
-│   │   │   │   └── LandingPage.css
+│   │   │   │   ├── Landing_Page.jsx
+│   │   │   │   ├── LandingPage.css
+│   │   │   │   └── LandingPage.html
 │   │   │   ├── Login/
-│   │   │   │   ├── Login.tsx
-│   │   │   │   └── Login.css
+│   │   │   │   ├── Login.css
+│   │   │   │   ├── Login.html
+│   │   │   │   └── Login.jsx
 │   │   │   ├── Navbar/
-│   │   │   │   ├── Navbar.jsx
-│   │   │   │   └── Navbar.css
-│   │   │   └── Sign_Up/
-│   │   │       ├── SignUp.jsx
-│   │   │       └── Sign_Up.css
+│   │   │   │   ├── Navbar.css
+│   │   │   │   ├── Navbar.html
+│   │   │   │   └── Navbar.jsx
+│   │   │   ├── Notification/
+│   │   │   │   ├── Notification.css
+│   │   │   │   └── Notification.jsx
+│   │   │   ├── ProfileCard/
+│   │   │   │   ├── ProfileCard.css
+│   │   │   │   └── ProfileCard.jsx
+│   │   │   ├── ReportsLayout/
+│   │   │   │   ├── ReportsLayout.css
+│   │   │   │   └── ReportsLayout.jsx
+│   │   │   ├── ReviewForm/
+│   │   │   │   ├── GiveReview.jsx
+│   │   │   │   ├── ReviewForm.css
+│   │   │   │   ├── ReviewForm.jsx
+│   │   │   │   └── ReviewFormApp.jsx
+│   │   │   ├── ServiceDetail/
+│   │   │   │   ├── ServiceDetail.css
+│   │   │   │   └── ServiceDetail.jsx
+│   │   │   ├── Sign_Up/
+│   │   │   │   ├── Sign_Up.css
+│   │   │   │   ├── Sign_Up.html
+│   │   │   │   └── Sign_Up.jsx
+│   │   │   └── BookingConsultation.jsx
+│   │   ├── data/
+│   │   │   ├── doctorData.js
+│   │   │   └── serviceData.js
 │   │   ├── App.css
 │   │   ├── App.jsx
+│   │   ├── config.js
 │   │   ├── index.css
-│   │   └── main.jsx
-│   ├── config.js
-│   ├── eslint.config.js
+│   │   └── setauthtocken.js
+│   ├── .gitignore
+│   ├── .nvmrc
+│   ├── .oxlintrc.json
+│   ├── build.txt
 │   ├── index.html
-│   ├── Setauthtoken.js
+│   ├── login.txt
+│   ├── package.json
+│   ├── register.txt
 │   └── vite.config.js
 ├── server/                             # Back-end (Express + MongoDB)
+│   ├── data/
+│   │   └── users.json
 │   ├── models/
 │   │   └── User.js
 │   ├── public/
 │   │   └── doctor_images/
 │   ├── routes/
 │   │   └── auth.js
+│   ├── utils/
+│   │   └── userStore.js
 │   ├── .gitignore
 │   ├── db.js
-│   └── index.js
+│   ├── index.js
+│   └── package.json
 ├── .gitignore
 ├── package.json                        # Root orchestrator
 └── README.md
@@ -129,7 +189,7 @@ server: {
   port: 5173,
   proxy: {
     "/api": {
-      target: "http://localhost:5000",
+      target: "http://localhost:8181",
       changeOrigin: true
     }
   }
@@ -144,6 +204,6 @@ fetch("/api/login")
 
 ## 🧪 Testing and validation
 
-- The server runs at http://localhost:5000
+- The server runs at http://localhost:8181
 - The client runs at http://localhost:5173
 - Both are started using `npm start`
