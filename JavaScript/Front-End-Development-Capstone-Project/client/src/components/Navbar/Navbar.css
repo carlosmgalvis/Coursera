@@ -1,0 +1,95 @@
+/* General Styles for Navbar */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Prevents padding from affecting width */
+}
+
+.nav__logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* Always left-align logo */
+    flex: 1;
+}
+
+.nav__logo a {
+    color: #3685fb;
+    /* Logo text is blue */
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Ensure SVG logo is aligned properly with text */
+.nav__logo svg {
+    margin-left: 8px;
+}
+
+/* Styles for the links in the navbar */
+.nav__links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Style each link */
+.nav__links ul {
+    display: flex;
+    gap: 8px;
+}
+
+.nav__links li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 50px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover Effect for Links */
+.nav__links li a:hover {
+    background-color: #3685fb;
+    /* Blue background on hover */
+    color: #fff;
+}
+
+/* Blue circular background for Login and Sign-Up links */
+.nav__links li a:nth-child(3),
+.nav__links li a:nth-child(4) {
+    background-color: #3685fb;
+    color: #fff;
+}
+
+/* Mobile Menu Icon (Hamburger Button) */
+.nav__icon {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #3685fb;
+    /* Set the mobile menu icon color to blue */
+}
+
+.nav__icon i {
+    color: inherit;
+}
+
+/* Show the menu when it's active (for mobile) */
+.nav__links.active {
+    display: block;
+    /* Show links when active */
+}
+
+button {
+    margin: 0px;
+    padding: 0px;
+}
