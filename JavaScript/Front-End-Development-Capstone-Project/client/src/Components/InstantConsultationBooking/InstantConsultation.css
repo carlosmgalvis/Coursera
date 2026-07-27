@@ -1,0 +1,115 @@
+.searchpage-container {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 6rem;
+    color: #414146;
+    padding: 0 20px 2.5rem;
+    position: static;
+    width: 100%;
+}
+.searchpage-container img {
+    max-width: 100%;
+}
+.search-results-container .doctorcard{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 18px;
+    border-radius: 4px;
+    background-color: #fff;
+
+}
+
+.search-results-container>h2 {
+    text-align: left;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.search-results-container>h3 {
+    margin-top: 12px;
+    color: #2d2d32;
+    text-align: left;
+    font-size: 15px;
+}
+
+.instant-consultation-container {
+    padding: 5.5rem 1.5rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.services-heading {
+    color: #0f2e63;
+    margin: 0;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+}
+
+.services-subheading {
+    color: #5f6f8d;
+    font-size: 1.1rem;
+    max-width: 680px;
+    margin: 0.85rem auto 1rem;
+}
+
+.services-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.instant-results-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #dce6f5;
+    text-align: left;
+}
+
+.instant-speciality-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f2e63;
+    margin: 0.5rem 0 0.75rem;
+}
+
+.instant-results-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.booking-results-count {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f2e63;
+}
+
+.booking-results-speciality {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f2e63;
+    margin: 0.5rem 0;
+}
+
+.booking-results-copy {
+    color: #5f6f8d;
+    margin-bottom: 1rem;
+}
+
+.services-empty-state {
+    color: #5f6f8d;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 640px) {
+    .instant-consultation-container {
+        padding: 5rem 1rem 2rem;
+    }
+}

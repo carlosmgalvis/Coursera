@@ -1,0 +1,82 @@
+[
+  {
+    "id": "fa5a8c0c-8240-4b1a-8e16-6060aaf6479f",
+    "role": "Patient",
+    "email": "fallback-test@example.com",
+    "name": "Fallback Test",
+    "password": "hash",
+    "phone": "1234567890",
+    "createdAt": "2026-06-30T11:24:49.447Z",
+    "updatedAt": "2026-06-30T11:24:49.451Z"
+  },
+  {
+    "id": "d18678fb-db70-487d-9157-9612a4ad3c98",
+    "role": "Patient",
+    "email": "asdfg@gmail.com",
+    "name": "asdfgh",
+    "password": "$2a$10$KdGE8vmwj5uOfl0WdAd3c.S1uzFZTRMrnJ388bEnUaS7L/A4xqxJC",
+    "phone": "1234567890",
+    "createdAt": "2026-06-30T11:25:12.449Z",
+    "updatedAt": "2026-06-30T11:25:12.449Z"
+  },
+  {
+    "id": "4a71c7c8-f54e-47b3-a57e-d03283e6b585",
+    "role": "Patient",
+    "email": "inamdaranand6@gmail.com",
+    "name": "anand",
+    "password": "$2a$10$TA0jifZtczzZVfCcYlrpSuVBmDoJyJWP9Yt4TxXkET1VEJJazS/w2",
+    "phone": "1324569870",
+    "createdAt": "2026-06-30T11:29:05.970Z",
+    "updatedAt": "2026-06-30T11:29:05.970Z"
+  },
+  {
+    "id": "a88ff16b-4eb7-45e5-9318-e4e03781bd25",
+    "role": "Patient",
+    "email": "anandinamdar03@gmail.com",
+    "name": "anand",
+    "password": "$2a$10$TD0zDyIteMFGgNm5TtpTH.IavfTVG.2Fd4Gyz.2Oa9g60Xk2COnTW",
+    "phone": "1234567890",
+    "createdAt": "2026-06-30T13:41:04.387Z",
+    "updatedAt": "2026-06-30T13:41:04.387Z"
+  },
+  {
+    "id": "3eed20f2-49f4-47c8-ae9c-74eefa108e23",
+    "role": "Patient",
+    "email": "peter@gmail.com",
+    "name": "Peter",
+    "password": "$2a$10$G71CIMwoU3Wyapil86qMU.BU5BrSLbccMKWuSPbNx0uU7aqL10DgK",
+    "phone": "1234567890",
+    "createdAt": "2026-06-30T16:15:25.923Z",
+    "updatedAt": "2026-06-30T16:15:25.925Z"
+  },
+  {
+    "id": "20c7cee6-7a32-4340-a5f0-05efbf6bfc49",
+    "role": "Patient",
+    "email": "peter123@gmail.com",
+    "name": "Peter",
+    "password": "$2a$10$bQ/NLrlXRBORXfXhqmzhPuY7nM85FGbbwXJHmPan/or4wKnIcuGS.",
+    "phone": "9876543210",
+    "createdAt": "2026-06-30T16:29:20.047Z",
+    "updatedAt": "2026-06-30T16:29:20.049Z"
+  },
+  {
+    "id": "f6872c1d-5312-415b-af25-89f094a86e7e",
+    "role": "Doctor",
+    "email": "doctor@stayhealthy.com",
+    "name": "Doctor",
+    "password": "$2a$10$FwvtIzvQmQuTFLDk.Q4LRuE7YHEpc2k3E6NlAuCTPS2yksFA6yho.",
+    "phone": "3001234567",
+    "createdAt": "2026-07-27T15:19:33.331Z",
+    "updatedAt": "2026-07-27T15:19:33.331Z"
+  },
+  {
+    "id": "ed9dc608-ab25-4fe6-b7cd-b3f29f367ae6",
+    "role": "Patient",
+    "email": "patient.carlos@stayhealthy.com",
+    "name": "Patient Carlos",
+    "password": "$2a$10$y7DSqoI4SGr2owcb3r/IpeozdsFaISUH0ftRw8jX/1xRGpdFJxM/i",
+    "phone": "3101234567",
+    "createdAt": "2026-07-27T22:28:24.825Z",
+    "updatedAt": "2026-07-27T22:28:24.825Z"
+  }
+]

@@ -1,0 +1,11 @@
+anandinamdar@Anands-MacBook-Air med_appt % curl -X POST http://localhost:8181/api/auth/register \
+-H "Content-Type: application/json" \
+-d '{
+  "role":"Patient",
+  "name":"Peter",
+  "email":"peter123@gmail.com",
+  "phone":"9876543210",
+  "password":"password123"
+}'
+output:
+{"authtoken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMjBjN2NlZTYtN2EzMi00MzQwLWE1ZjAtMDVlZmJmNmJmYzQ5In0sImlhdCI6MTc4MjgzNjk2MH0.M1UOmD48CIw56v480oFvkQpoECN0Thzg7lb9WzVJr8k"}%  

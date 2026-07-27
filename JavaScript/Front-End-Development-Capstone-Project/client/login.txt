@@ -1,0 +1,8 @@
+anandinamdar@Anands-MacBook-Air med_appt % curl -X POST http://localhost:8181/api/auth/login \
+-H "Content-Type: application/json" \
+-d '{
+  "email":"peter123@gmail.com",
+  "password":"password123"
+}'
+output:
+{"authtoken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMjBjN2NlZTYtN2EzMi00MzQwLWE1ZjAtMDVlZmJmNmJmYzQ5In0sImlhdCI6MTc4MjgzNzA4NX0.VYeNuYM2jpR_TR0UyFTE5iikJ5dFggnk0PuaBtD4EAk"}%                 
